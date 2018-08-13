@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.trade.dao.BuyInfoMapper">
+    <resultMap id="BaseResultMap" type="org.trade.entity.BuyInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="check_level" property="checkLevel" jdbcType="INTEGER"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="create_company" property="createCompany" jdbcType="VARCHAR"/>
+        <result column="sno" property="sno" jdbcType="VARCHAR"/>
+        <result column="create_person" property="createPerson" jdbcType="VARCHAR"/>
+        <result column="sign_person" property="signPerson" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="type1" property="type1" jdbcType="VARCHAR"/>
+        <result column="type2" property="type2" jdbcType="VARCHAR"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+        <result column="transport" property="transport" jdbcType="VARCHAR"/>
+        <result column="high_price" property="highPrice" jdbcType="DECIMAL"/>
+        <result column="low_price" property="lowPrice" jdbcType="DECIMAL"/>
+        <result column="explains" property="explains" jdbcType="VARCHAR"/>
+        <result column="pay_type" property="payType" jdbcType="VARCHAR"/>
+        <result column="baojia_price" property="baojiaPrice" jdbcType="DECIMAL"/>
+        <result column="agree_price" property="agreePrice" jdbcType="DECIMAL"/>
+        <result column="stime" property="stime" jdbcType="DATE"/>
+        <result column="etime" property="etime" jdbcType="DATE"/>
+        <result column="Applicant" property="applicant" jdbcType="VARCHAR"/>
+        <result column="place" property="place" jdbcType="VARCHAR"/>
+        <result column="calculate_type" property="calculateType" jdbcType="VARCHAR"/>
+        <result column="checkgoods_type" property="checkgoodsType" jdbcType="VARCHAR"/>
+        <result column="hot1" property="hot1" jdbcType="VARCHAR"/>
+        <result column="air" property="air" jdbcType="VARCHAR"/>
+        <result column="hot2" property="hot2" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <association property="users" column="uid" select="selectByUsersId">
+
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, uid, check_level, end_time, create_company, sno, create_person, sign_person,
+        create_time, type1, type2, number, transport, high_price, low_price, explains, pay_type,
+        baojia_price, agree_price, stime, etime, Applicant, place, calculate_type, checkgoods_type,
+        hot1, air, hot2, remark
+    </sql>
+    <select id="selectByUsersId" resultType="org.trade.entity.Users">
+        select *from users where id=#{uid}
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        *
+        from buyinfo
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="checkState" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo where check_level=-1
+        and uid=#{uid}
+    </select>
+    <select id="findByUid" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo where uid=#{uid}
+    </select>
+    <select id="findAll" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo where check_level=2 order by create_time desc limit #{offset},#{limit}
+    </select>
+    <select id="queryAll" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo where check_level=2 order by create_time desc
+    </select>
+    <select id="findByCheckLevel0" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo where check_level=0 order by create_time desc
+    </select>
+    <select id="findByCheckLevel1" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo where check_level=1 order by create_time desc
+    </select>
+    <select id="findAllInEffectiveTime" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo where
+        check_level=2
+        and create_time <![CDATA[ <= ]]> #{nowTime}
+        and end_time >= #{nowTime}
+    </select>
+
+    <select id="selectSuppliers1" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo b inner join baojia bj on b.id=bj.bid
+        where bj.check_level=0
+        group by b.id
+    </select>
+    <select id="selectSuppliers2" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo b inner join baojia bj on b.id=bj.bid
+        where bj.check_level=1
+        group by b.id
+    </select>
+    <select id="selectSuppliers3" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo b inner join baojia bj on b.id=bj.bid
+        where bj.check_level=2
+        group by b.id
+    </select>
+    <select id="selectSuppliers4" resultType="org.trade.entity.BuyInfo">
+        select *from buyinfo b inner join baojia bj on b.id=bj.bid
+        where
+        and b.uid=#{uid}
+        and bj.check_level=3
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from buyinfo
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="org.trade.entity.BuyInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into buyinfo (id, uid, check_level,
+        end_time, create_company, sno,
+        create_person, sign_person, create_time,
+        type1, type2, number,
+        transport, high_price, low_price,
+        explains, pay_type, baojia_price,
+        agree_price, stime, etime,
+        Applicant, place, calculate_type,
+        checkgoods_type, hot1, air,
+        hot2, remark)
+        values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{checkLevel,jdbcType=INTEGER},
+        #{endTime,jdbcType=TIMESTAMP}, #{createCompany,jdbcType=VARCHAR}, #{sno,jdbcType=VARCHAR},
+        #{createPerson,jdbcType=VARCHAR}, #{signPerson,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{type1,jdbcType=VARCHAR}, #{type2,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},
+        #{transport,jdbcType=VARCHAR}, #{highPrice,jdbcType=DECIMAL}, #{lowPrice,jdbcType=DECIMAL},
+        #{explains,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, #{baojiaPrice,jdbcType=DECIMAL},
+        #{agreePrice,jdbcType=DECIMAL}, #{stime,jdbcType=DATE}, #{etime,jdbcType=DATE},
+        #{applicant,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{calculateType,jdbcType=VARCHAR},
+        #{checkgoodsType,jdbcType=VARCHAR}, #{hot1,jdbcType=VARCHAR}, #{air,jdbcType=VARCHAR},
+        #{hot2,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="org.trade.entity.BuyInfo">
+        insert into buyinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="checkLevel != null">
+                check_level,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="createCompany != null">
+                create_company,
+            </if>
+            <if test="sno != null">
+                sno,
+            </if>
+            <if test="createPerson != null">
+                create_person,
+            </if>
+            <if test="signPerson != null">
+                sign_person,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="type1 != null">
+                type1,
+            </if>
+            <if test="type2 != null">
+                type2,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="transport != null">
+                transport,
+            </if>
+            <if test="highPrice != null">
+                high_price,
+            </if>
+            <if test="lowPrice != null">
+                low_price,
+            </if>
+            <if test="explains != null">
+                explains,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="baojiaPrice != null">
+                baojia_price,
+            </if>
+            <if test="agreePrice != null">
+                agree_price,
+            </if>
+            <if test="stime != null">
+                stime,
+            </if>
+            <if test="etime != null">
+                etime,
+            </if>
+            <if test="applicant != null">
+                Applicant,
+            </if>
+            <if test="place != null">
+                place,
+            </if>
+            <if test="calculateType != null">
+                calculate_type,
+            </if>
+            <if test="checkgoodsType != null">
+                checkgoods_type,
+            </if>
+            <if test="hot1 != null">
+                hot1,
+            </if>
+            <if test="air != null">
+                air,
+            </if>
+            <if test="hot2 != null">
+                hot2,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="checkLevel != null">
+                #{checkLevel,jdbcType=INTEGER},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createCompany != null">
+                #{createCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="sno != null">
+                #{sno,jdbcType=VARCHAR},
+            </if>
+            <if test="createPerson != null">
+                #{createPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="signPerson != null">
+                #{signPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type1 != null">
+                #{type1,jdbcType=VARCHAR},
+            </if>
+            <if test="type2 != null">
+                #{type2,jdbcType=VARCHAR},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=INTEGER},
+            </if>
+            <if test="transport != null">
+                #{transport,jdbcType=VARCHAR},
+            </if>
+            <if test="highPrice != null">
+                #{highPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="lowPrice != null">
+                #{lowPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="explains != null">
+                #{explains,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="baojiaPrice != null">
+                #{baojiaPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="agreePrice != null">
+                #{agreePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="stime != null">
+                #{stime,jdbcType=DATE},
+            </if>
+            <if test="etime != null">
+                #{etime,jdbcType=DATE},
+            </if>
+            <if test="applicant != null">
+                #{applicant,jdbcType=VARCHAR},
+            </if>
+            <if test="place != null">
+                #{place,jdbcType=VARCHAR},
+            </if>
+            <if test="calculateType != null">
+                #{calculateType,jdbcType=VARCHAR},
+            </if>
+            <if test="checkgoodsType != null">
+                #{checkgoodsType,jdbcType=VARCHAR},
+            </if>
+            <if test="hot1 != null">
+                #{hot1,jdbcType=VARCHAR},
+            </if>
+            <if test="air != null">
+                #{air,jdbcType=VARCHAR},
+            </if>
+            <if test="hot2 != null">
+                #{hot2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.trade.entity.BuyInfo">
+        update buyinfo
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="checkLevel != null">
+                check_level = #{checkLevel,jdbcType=INTEGER},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createCompany != null">
+                create_company = #{createCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="sno != null">
+                sno = #{sno,jdbcType=VARCHAR},
+            </if>
+            <if test="createPerson != null">
+                create_person = #{createPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="signPerson != null">
+                sign_person = #{signPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type1 != null">
+                type1 = #{type1,jdbcType=VARCHAR},
+            </if>
+            <if test="type2 != null">
+                type2 = #{type2,jdbcType=VARCHAR},
+            </if>
+            <if test="number != null">
+                number = #{number,jdbcType=INTEGER},
+            </if>
+            <if test="transport != null">
+                transport = #{transport,jdbcType=VARCHAR},
+            </if>
+            <if test="highPrice != null">
+                high_price = #{highPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="lowPrice != null">
+                low_price = #{lowPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="explains != null">
+                explains = #{explains,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="baojiaPrice != null">
+                baojia_price = #{baojiaPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="agreePrice != null">
+                agree_price = #{agreePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="stime != null">
+                stime = #{stime,jdbcType=DATE},
+            </if>
+            <if test="etime != null">
+                etime = #{etime,jdbcType=DATE},
+            </if>
+            <if test="applicant != null">
+                Applicant = #{applicant,jdbcType=VARCHAR},
+            </if>
+            <if test="place != null">
+                place = #{place,jdbcType=VARCHAR},
+            </if>
+            <if test="calculateType != null">
+                calculate_type = #{calculateType,jdbcType=VARCHAR},
+            </if>
+            <if test="checkgoodsType != null">
+                checkgoods_type = #{checkgoodsType,jdbcType=VARCHAR},
+            </if>
+            <if test="hot1 != null">
+                hot1 = #{hot1,jdbcType=VARCHAR},
+            </if>
+            <if test="air != null">
+                air = #{air,jdbcType=VARCHAR},
+            </if>
+            <if test="hot2 != null">
+                hot2 = #{hot2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.trade.entity.BuyInfo">
+        update buyinfo
+        set uid = #{uid,jdbcType=INTEGER},
+        check_level = #{checkLevel,jdbcType=INTEGER},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        create_company = #{createCompany,jdbcType=VARCHAR},
+        sno = #{sno,jdbcType=VARCHAR},
+        create_person = #{createPerson,jdbcType=VARCHAR},
+        sign_person = #{signPerson,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        type1 = #{type1,jdbcType=VARCHAR},
+        type2 = #{type2,jdbcType=VARCHAR},
+        number = #{number,jdbcType=INTEGER},
+        transport = #{transport,jdbcType=VARCHAR},
+        high_price = #{highPrice,jdbcType=DECIMAL},
+        low_price = #{lowPrice,jdbcType=DECIMAL},
+        explains = #{explains,jdbcType=VARCHAR},
+        pay_type = #{payType,jdbcType=VARCHAR},
+        baojia_price = #{baojiaPrice,jdbcType=DECIMAL},
+        agree_price = #{agreePrice,jdbcType=DECIMAL},
+        stime = #{stime,jdbcType=DATE},
+        etime = #{etime,jdbcType=DATE},
+        Applicant = #{applicant,jdbcType=VARCHAR},
+        place = #{place,jdbcType=VARCHAR},
+        calculate_type = #{calculateType,jdbcType=VARCHAR},
+        checkgoods_type = #{checkgoodsType,jdbcType=VARCHAR},
+        hot1 = #{hot1,jdbcType=VARCHAR},
+        air = #{air,jdbcType=VARCHAR},
+        hot2 = #{hot2,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.trade.dao.Baojia_GysMapper">
+    <resultMap id="BaseResultMap" type="org.trade.entity.Baojia_Gys">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="bjid" property="bjid" jdbcType="INTEGER"/>
+        <result column="gid" property="gid" jdbcType="INTEGER"/>
+        <association property="baojia" column="bjid" select="select1">
+
+        </association>
+        <association property="gys" column="gid" select="selectGysById">
+
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, bjid, gid
+  </sql>
+    <select id="select1" resultMap="org.trade.dao.BaojiaMapper.BaseResultMap">
+    select *from baojia where id=#{bjid}
+  </select>
+    <select id="selectGysById" resultMap="org.trade.dao.GysMapper.BaseResultMap">
+    select *from gys where id= #{gid}
+  </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from baojia_gys
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findAllChecklevel1" resultMap="BaseResultMap">
+select bg.id,bg.bjid,bg.gid from buyinfo b,baojia bj,baojia_gys bg,gys g
+where b.id=#{id} and
+b.id=bj.bid
+and bj.id=bg.bjid
+and bg.gid=g.id
+and bj.check_level=0
+
+    </select>
+    <select id="findAllChecklevel2" resultMap="BaseResultMap">
+    select bg.id,bg.bjid,bg.gid from buyinfo b,baojia bj,baojia_gys bg,gys g
+where
+b.id=#{id} and
+b.id=bj.bid
+and bj.id=bg.bjid
+and bg.gid=g.id
+and bj.check_level=1
+
+  </select>
+    <select id="findAllChecklevel3" resultMap="BaseResultMap">
+         select bg.id,bg.bjid,bg.gid from buyinfo b,baojia bj,baojia_gys bg,gys g
+where
+b.id=#{id} and
+b.id=bj.bid
+and bj.id=bg.bjid
+and bg.gid=g.id
+and bj.check_level=2
+
+  </select>
+    <select id="findByArray" resultMap="BaseResultMap">
+        select *from baojia_gys where
+        <foreach item="id" collection="array" open="id in ("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from baojia_gys
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="org.trade.entity.Baojia_Gys">
+    insert into baojia_gys (id, bjid, gid
+      )
+    values (#{id,jdbcType=INTEGER}, #{bjid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="org.trade.entity.Baojia_Gys">
+        insert into baojia_gys
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bjid != null">
+                bjid,
+            </if>
+            <if test="gid != null">
+                gid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="bjid != null">
+                #{bjid,jdbcType=INTEGER},
+            </if>
+            <if test="gid != null">
+                #{gid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.trade.entity.Baojia_Gys">
+        update baojia_gys
+        <set>
+            <if test="bjid != null">
+                bjid = #{bjid,jdbcType=INTEGER},
+            </if>
+            <if test="gid != null">
+                gid = #{gid,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.trade.entity.Baojia_Gys">
+    update baojia_gys
+    set bjid = #{bjid,jdbcType=INTEGER},
+      gid = #{gid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

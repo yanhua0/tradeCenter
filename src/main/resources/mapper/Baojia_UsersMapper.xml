@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.trade.dao.Baojia_UsersMapper" >
+  <resultMap id="BaseResultMap" type="org.trade.entity.Baojia_Users" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="check_advice" property="checkAdvice" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <association property="users" column="uid" select="selectByUsersId"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bid, uid, check_advice, check_time
+  </sql>
+  <select id="selectByUsersId" resultMap="org.trade.dao.UsersMapper.BaseResultMap">
+    select *from users where id=#{uid}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from baojia_users
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findByBid" resultMap="BaseResultMap">
+    select *from baojia_users where bid=#{bid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from baojia_users
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.trade.entity.Baojia_Users" >
+    insert into baojia_users (id, bid, uid, 
+      check_advice, check_time)
+    values (#{id,jdbcType=INTEGER}, #{bid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{checkAdvice,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.trade.entity.Baojia_Users" >
+    insert into baojia_users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="checkAdvice != null" >
+        check_advice,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="checkAdvice != null" >
+        #{checkAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.trade.entity.Baojia_Users" >
+    update baojia_users
+    <set >
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="checkAdvice != null" >
+        check_advice = #{checkAdvice,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.trade.entity.Baojia_Users" >
+    update baojia_users
+    set bid = #{bid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      check_advice = #{checkAdvice,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

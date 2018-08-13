@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>MyLog/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>ERROR</level>-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        <!--</filter>-->
+        <encoder>
+            <pattern>%-4relative %d{HH:mm:ss.SSS} - [%thread] %-5level %class - %msg%n</pattern>
+        </encoder>
+
+    </appender>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!--乱码解决-->
+        <encoder charset="UTF-8">
+            <pattern>${date_pattern}</pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

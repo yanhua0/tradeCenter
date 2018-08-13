@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.trade.dao.BaojiaMapper" >
+  <resultMap id="BaseResultMap" type="org.trade.entity.Baojia" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="check_level" property="checkLevel" jdbcType="INTEGER" />
+    <result column="unit_price" property="unitPrice" jdbcType="VARCHAR" />
+    <result column="transport_price" property="transportPrice" jdbcType="VARCHAR" />
+    <result column="create_area" property="createArea" jdbcType="VARCHAR" />
+    <result column="send_area" property="sendArea" jdbcType="VARCHAR" />
+    <result column="create_time" property="create_timer" jdbcType="TIMESTAMP"  />
+    <association property="buyInfo" column="bid" select="selectByBuyInfoId">
+
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gid, price, number, bid, check_level, unit_price, transport_price, create_area, 
+    send_area, uid
+  </sql>
+  <select id="selectByBuyInfoId" resultMap="org.trade.dao.BuyInfoMapper.BaseResultMap">
+    select *from buyinfo where id=#{bid}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from baojia
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findByCheckInfo" resultType="org.trade.entity.Baojia">
+    select * from baojia bj,users u,gys g,baojia_gys bg where
+bj.bid=#{bid}
+and u.id=#{uid}
+and (bj.check_level=0 or bj.check_level=-1)
+and u.id=g.uid
+and g.id=bg.gid
+and bg.bjid=bj.id
+
+  </select>
+  <select id="checkInfo" resultType="org.trade.entity.Baojia">
+    select *from baojia where
+    <foreach item="id" collection="array" open="id in ("
+             separator="," close=")">
+      #{id}
+    </foreach>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from baojia
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByIdArray">
+    delete
+    from
+    baojia
+    where
+    <foreach item="id" collection="array" open="id in ("
+             separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="org.trade.entity.Baojia" useGeneratedKeys="true" keyProperty="id">
+    insert into baojia (id, price, number,
+    bid, check_level, unit_price,
+    transport_price, create_area, send_area
+    )
+    values (#{id,jdbcType=INTEGER}, #{price,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},
+    #{bid,jdbcType=INTEGER}, #{checkLevel,jdbcType=INTEGER}, #{unitPrice,jdbcType=VARCHAR},
+    #{transportPrice,jdbcType=VARCHAR}, #{createArea,jdbcType=VARCHAR}, #{sendArea,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="org.trade.entity.Baojia" >
+    insert into baojia
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="checkLevel != null" >
+        check_level,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="transportPrice != null" >
+        transport_price,
+      </if>
+      <if test="createArea != null" >
+        create_area,
+      </if>
+      <if test="sendArea != null" >
+        send_area,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="checkLevel != null" >
+        #{checkLevel,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="transportPrice != null" >
+        #{transportPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="createArea != null" >
+        #{createArea,jdbcType=VARCHAR},
+      </if>
+      <if test="sendArea != null" >
+        #{sendArea,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.trade.entity.Baojia" >
+    update baojia
+    <set >
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="checkLevel != null" >
+        check_level = #{checkLevel,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="transportPrice != null" >
+        transport_price = #{transportPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="createArea != null" >
+        create_area = #{createArea,jdbcType=VARCHAR},
+      </if>
+      <if test="sendArea != null" >
+        send_area = #{sendArea,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.trade.entity.Baojia" >
+    update baojia
+    set price = #{price,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      bid = #{bid,jdbcType=INTEGER},
+      check_level = #{checkLevel,jdbcType=INTEGER},
+      unit_price = #{unitPrice,jdbcType=VARCHAR},
+      transport_price = #{transportPrice,jdbcType=VARCHAR},
+      create_area = #{createArea,jdbcType=VARCHAR},
+      send_area = #{sendArea,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateSetCheckLevel1">
+     update baojia
+      set check_level=1
+      where
+      <foreach item="id" collection="array" open="id in ("
+               separator="," close=")">
+        #{id}
+      </foreach>
+    </update>
+  <update id="updateSetCheckLevel2">
+    update baojia
+    set check_level=2
+    where
+    <foreach item="id" collection="array" open="id in ("
+             separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+  <update id="updateSetCheckLevel3">
+    update baojia
+    set check_level=3
+    where
+    <foreach item="id" collection="array" open="id in ("
+             separator="," close=")">
+      #{id}
+    </foreach>
+  </update>
+</mapper>

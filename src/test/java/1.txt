@@ -1,0 +1,3 @@
+@RunWith(SpringJUnit4ClassRunner.class)
+//告诉junit Spring配置文件的位置
+@ContextConfiguration({"classpath:spring/spring-dao.xml"})

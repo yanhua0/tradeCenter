@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.trade.dao.MesMapper" >
+  <resultMap id="BaseResultMap" type="org.trade.entity.Mes" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="receieveid" property="receieveid" jdbcType="INTEGER" />
+    <result column="sendname" property="sendname" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, message, receieveid, sendname, state, send_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mes
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findAll" resultType="org.trade.entity.Mes">
+    select *from mes where receieveid=#{id} order by send_time desc
+  </select>
+    <select id="findByState" resultType="org.trade.entity.Mes">
+      select *from mes where state=0 and receieveid=#{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mes
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.trade.entity.Mes" >
+    insert into mes (id, message, receieveid, 
+      sendname, state, send_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, #{receieveid,jdbcType=INTEGER}, 
+      #{sendname,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{sendTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.trade.entity.Mes" >
+    insert into mes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="receieveid != null" >
+        receieveid,
+      </if>
+      <if test="sendname != null" >
+        sendname,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="receieveid != null" >
+        #{receieveid,jdbcType=INTEGER},
+      </if>
+      <if test="sendname != null" >
+        #{sendname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+    <insert id="insertListMes"  parameterType="java.util.List">
+     insert into mes(message,receieveid,sendname,state)
+        value
+        <foreach collection="list" item="list" index="index" separator=",">
+          (#{list.message},#{list.receieveid},#{list.sendname},#{list.state})
+        </foreach>
+
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.trade.entity.Mes" >
+    update mes
+    <set >
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="receieveid != null" >
+        receieveid = #{receieveid,jdbcType=INTEGER},
+      </if>
+      <if test="sendname != null" >
+        sendname = #{sendname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.trade.entity.Mes" >
+    update mes
+    set message = #{message,jdbcType=VARCHAR},
+      receieveid = #{receieveid,jdbcType=INTEGER},
+      sendname = #{sendname,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      send_time = #{sendTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="update"  parameterType="java.util.List">
+  <foreach collection="list" item="list" index="index" separator=";">
+    update mes set state=1 where id=#{list.id}
+  </foreach>
+  </update>
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.trade.dao.SupplierMapper" >
+  <resultMap id="BaseResultMap" type="org.trade.entity.Supplier" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="coal_type" property="coalType" jdbcType="VARCHAR" />
+    <result column="Base_low_calorific_value" property="baseLowCalorificValue" jdbcType="VARCHAR" />
+    <result column="air_dry_basis_moisture" property="airDryBasisMoisture" jdbcType="VARCHAR" />
+    <result column="dry_base_high_calorific_value" property="dryBaseHighCalorificValue" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="delivery_method" property="deliveryMethod" jdbcType="VARCHAR" />
+    <result column="trading_locations" property="tradingLocations" jdbcType="VARCHAR" />
+    <result column="release_end_time" property="releaseEndTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, coal_type, Base_low_calorific_value, air_dry_basis_moisture, dry_base_high_calorific_value, 
+    price, number, delivery_method, trading_locations, release_end_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.trade.entity.Supplier" >
+    insert into supplier (id, coal_type, Base_low_calorific_value, 
+      air_dry_basis_moisture, dry_base_high_calorific_value, 
+      price, number, delivery_method, 
+      trading_locations, release_end_time)
+    values (#{id,jdbcType=INTEGER}, #{coalType,jdbcType=VARCHAR}, #{baseLowCalorificValue,jdbcType=VARCHAR}, 
+      #{airDryBasisMoisture,jdbcType=VARCHAR}, #{dryBaseHighCalorificValue,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{number,jdbcType=INTEGER}, #{deliveryMethod,jdbcType=VARCHAR}, 
+      #{tradingLocations,jdbcType=VARCHAR}, #{releaseEndTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="org.trade.entity.Supplier" >
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="coalType != null" >
+        coal_type,
+      </if>
+      <if test="baseLowCalorificValue != null" >
+        Base_low_calorific_value,
+      </if>
+      <if test="airDryBasisMoisture != null" >
+        air_dry_basis_moisture,
+      </if>
+      <if test="dryBaseHighCalorificValue != null" >
+        dry_base_high_calorific_value,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="deliveryMethod != null" >
+        delivery_method,
+      </if>
+      <if test="tradingLocations != null" >
+        trading_locations,
+      </if>
+      <if test="releaseEndTime != null" >
+        release_end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="coalType != null" >
+        #{coalType,jdbcType=VARCHAR},
+      </if>
+      <if test="baseLowCalorificValue != null" >
+        #{baseLowCalorificValue,jdbcType=VARCHAR},
+      </if>
+      <if test="airDryBasisMoisture != null" >
+        #{airDryBasisMoisture,jdbcType=VARCHAR},
+      </if>
+      <if test="dryBaseHighCalorificValue != null" >
+        #{dryBaseHighCalorificValue,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryMethod != null" >
+        #{deliveryMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingLocations != null" >
+        #{tradingLocations,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseEndTime != null" >
+        #{releaseEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.trade.entity.Supplier" >
+    update supplier
+    <set >
+      <if test="coalType != null" >
+        coal_type = #{coalType,jdbcType=VARCHAR},
+      </if>
+      <if test="baseLowCalorificValue != null" >
+        Base_low_calorific_value = #{baseLowCalorificValue,jdbcType=VARCHAR},
+      </if>
+      <if test="airDryBasisMoisture != null" >
+        air_dry_basis_moisture = #{airDryBasisMoisture,jdbcType=VARCHAR},
+      </if>
+      <if test="dryBaseHighCalorificValue != null" >
+        dry_base_high_calorific_value = #{dryBaseHighCalorificValue,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryMethod != null" >
+        delivery_method = #{deliveryMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingLocations != null" >
+        trading_locations = #{tradingLocations,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseEndTime != null" >
+        release_end_time = #{releaseEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.trade.entity.Supplier" >
+    update supplier
+    set coal_type = #{coalType,jdbcType=VARCHAR},
+      Base_low_calorific_value = #{baseLowCalorificValue,jdbcType=VARCHAR},
+      air_dry_basis_moisture = #{airDryBasisMoisture,jdbcType=VARCHAR},
+      dry_base_high_calorific_value = #{dryBaseHighCalorificValue,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      number = #{number,jdbcType=INTEGER},
+      delivery_method = #{deliveryMethod,jdbcType=VARCHAR},
+      trading_locations = #{tradingLocations,jdbcType=VARCHAR},
+      release_end_time = #{releaseEndTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
