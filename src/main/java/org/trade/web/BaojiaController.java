@@ -61,14 +61,14 @@ public class BaojiaController {
             if (users.getRole().getAction().equals("阳光用户")) {
                 BuyInfo buyInfo = buyInfoService.findById(id);
                 Baojia baojia = baojiaService.findCheckInfo(id, users.getId());
-
+                if (buyInfo.getBaojiaPrice() != -1) {
+                    double price = buyInfo.getBaojiaPrice() * buyInfo.getNumber();//要缴纳的保证金计算
+                    model.addAttribute("price", price);
+                } else {
+                    model.addAttribute("price", "不要求保证金。");
+                }
                 if (baojia != null) {
-                    if (buyInfo.getBaojiaPrice() != -1) {
-                        double price = buyInfo.getBaojiaPrice() * buyInfo.getNumber();//要缴纳的保证金计算
-                        model.addAttribute("price", price);
-                    } else {
-                        model.addAttribute("price", "不要求保证金。");
-                    }
+
                     model.addAttribute("baojia", baojia);
                 }
                 model.addAttribute("buyInfo", buyInfo);

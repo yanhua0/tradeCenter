@@ -97,11 +97,7 @@
                                 <a href="gys3?id=${buyInfo.id}" target="content">审批</a>
                             </c:if>
                         </c:if>
-
                     </td>
-
-
-
                     </tr>
                 </c:forEach>
                 <tr>

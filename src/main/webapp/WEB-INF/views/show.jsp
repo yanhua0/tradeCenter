@@ -19,6 +19,12 @@
   top: 672px;
   left: 193px;
 }
+    #butn{
+      position: absolute;
+      top: 810px;
+      left: 150px;
+
+    }
   </style>
     <%----%>
   <%--<style>--%>
@@ -631,7 +637,32 @@
     <img id="u147_img" class="img " src="static/resources/images/transparent.gif"/>
     <!-- Unnamed () -->
     <div id="u148" class="text">
-      <p><span style="color:#000000;">本次采购报价保证金标准：</span><span style="color:#FF0000;">${buyInfo.baojiaPrice}元/吨</span><span style="color:#000000;">，履约保证金标准：</span><span style="color:#FF0000;">${buyInfo.agreePrice}元/吨</span><span style="color:#000000;">；</span></p><p><span style="color:#000000;">参与报价时，供应商须先通过平台开立的保证金虚拟账户缴纳</span><span style="color:#FF0000;">500,000元</span><span style="color:#000000;">报价保证金；</span></p><p><span style="color:#000000;">中标信息公布后，未中标供应商的报价保证金将自动返回供应商保证金虚拟账户；</span></p><p><span style="color:#000000;">中标供应商与电厂签订采购合同时，供应商按电厂履约保证金要求及签约量缴纳履约保证金；在双方完成合同履约后，电厂将解冻履约保证金，履约保证金将返还供应商保证金虚拟账户。</span></p>
+
+      <p><span style="color:#000000;">本次采购报价保证金标准：</span>
+        <c:if test="${buyInfo.baojiaPrice!=-1}">
+          <span style="color:#FF0000;">${buyInfo.baojiaPrice}元/吨</span>
+        </c:if>
+        <c:if test="${buyInfo.baojiaPrice==-1}">
+          <span style="color:#FF0000;">不要求保证金</span>
+        </c:if>
+        <span style="color:#000000;">，履约保证金标准：</span>
+        <c:if test="${buyInfo.agreePrice!=-1}">
+          <span style="color:#FF0000;">${buyInfo.agreePrice}元/吨</span>
+        </c:if>
+        <c:if test="${buyInfo.agreePrice==-1}">
+          <span style="color:#FF0000;">本次不要求履约保证金</span>
+        </c:if>
+        <span style="color:#000000;">；</span></p>
+      <c:if test="${buyInfo.baojiaPrice!=-1}">
+        <p>
+          <span style="color:#000000;">参与报价时，供应商须先通过平台开立的保证金虚拟账户缴纳</span>
+          <span style="color:#FF0000;">${price}元</span>
+          <span style="color:#000000;">报价保证金；</span>
+
+        </p>
+      </c:if>
+      <p><span style="color:#000000;">中标信息公布后，未中标供应商的报价保证金将自动返回供应商保证金虚拟账户；</span></p><p><span style="color:#000000;">中标供应商与电厂签订采购合同时，供应商按电厂履约保证金要求及签约量缴纳履约保证金；在双方完成合同履约后，电厂将解冻履约保证金，履约保证金将返还供应商保证金虚拟账户。</span></p>
+
     </div>
   </div>
 
@@ -686,5 +717,11 @@
       <p><span>${buyInfo.explains}</span></p>
     </div>
   </div>
+     <div id="butn"><input type="button" id="redirect" class="btn btn-primary" onclick="redirect()" value="返回"></div>
   </body>
+<script>
+  function  redirect() {
+      window.location.href="add";
+  }
+</script>
 </html>

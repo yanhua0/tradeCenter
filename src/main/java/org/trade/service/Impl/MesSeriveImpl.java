@@ -16,7 +16,7 @@ public class MesSeriveImpl implements MesService {
     private MesMapper mesMapper;
     @Override
     public PageInfo<Mes> findByPage(int page,int id) {
-        PageHelper.startPage(page, 6);
+        PageHelper.startPage(page, 8);
         List<Mes> list=mesMapper.findAll(id);//分页的下一行一定要是分页的数据
         List<Mes> mes=mesMapper.findByState(id);//未读信息
         if(list.size()>0){

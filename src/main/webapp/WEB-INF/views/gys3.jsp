@@ -840,14 +840,33 @@ word-wrap: break-word;
               window.location.href="gys";
           })
           $("#confirm").click(function () {
-              $("#form").attr("action","checkLevel3");
-              $("#form").submit();
-          })
+              if(check()!=false){
+                  $("#form").attr("action","checkLevel3");
+                  $("#form").submit();
+              }
+          });
           $("#del").click(function () {
-              console.log("删除");
-              $("#form").attr("action","del");
-              $("#form").submit();
-          })
+             if(check()!=false){
+                 $("#form").attr("action","del");
+                 $("#form").submit();
+             }
+          });
+          function  check() {
+              var a =document.getElementsByName("bjid");
+              var b=0;
+              for(var i=0;i<a.length;i++)
+              {
+                  if(a[i].checked==true)
+                  {
+                      b++;
+                  }
+              }
+              if(b==0){
+                  alert("请选择供应商!");
+                  return false;
+              }
+
+          }
       })
   </script>
 </body>

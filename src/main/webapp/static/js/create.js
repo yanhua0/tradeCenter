@@ -39,7 +39,10 @@ $(function () {
             alert("请填写需要采购数量");
             return false;
         }
-
+        if( $("#u79_input").val().length == 0){
+            alert("请填写交货地点");
+            return false;
+        }
         if( $("#u164_input").val().length == 0){
             alert("请填写最高限价");
             return false;

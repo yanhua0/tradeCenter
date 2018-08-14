@@ -90,8 +90,15 @@ public class Baojia_GysServiceImpl implements Baojia_GysService{
     private List<Baojia_Gys> showPrice(List<Baojia_Gys> list) throws Exception {
         for(int i=0;i<list.size();i++){
             String price=list.get(i).getBaojia().getPrice();
-           String s= Base64.getFromBase64(price);
-           list.get(i).getBaojia().setPrice(s);
+            String unit=list.get(i).getBaojia().getUnitPrice();
+            String tr=list.get(i).getBaojia().getTransportPrice();
+            //解密
+            String jiemiunit= Base64.getFromBase64(unit);
+            String tran=Base64.getFromBase64(tr);
+            String s= Base64.getFromBase64(price);
+            list.get(i).getBaojia().setPrice(s);
+            list.get(i).getBaojia().setTransportPrice(tran);
+            list.get(i).getBaojia().setUnitPrice(jiemiunit);
         }
         return list;
     }

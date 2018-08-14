@@ -807,16 +807,37 @@
     $(function () {
         $("#redirect").click(function () {
             window.location.href="gys";
-        })
+        });
         $("#confirm").click(function () {
-            $("#form").attr("action","checkLevel1");
-            alert("审核信息已经提交!");
-            $("#form").submit();
-        })
+            if(check()!=false){
+                $("#form").attr("action","checkLevel1");
+                alert("审核信息已经提交!");
+                $("#form").submit();
+            }
+
+        });
         $("#del").click(function () {
-            $("#form").attr("action","del");
-            $("#form").submit();
+            if(check()!=false){
+                $("#form").attr("action","del");
+                $("#form").submit();
+            }
         })
-    })
+    });
+    function  check() {
+        var a =document.getElementsByName("bjid");
+        var b=0;
+        for(var i=0;i<a.length;i++)
+        {
+            if(a[i].checked==true)
+            {
+                b++;
+            }
+        }
+        if(b==0){
+            alert("请选择供应商!");
+            return false;
+        }
+
+    }
 </script>
 </html>
