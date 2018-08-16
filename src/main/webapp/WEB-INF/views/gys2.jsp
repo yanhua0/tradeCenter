@@ -815,4 +815,12 @@
         }
     })
 </script>
+<script>
+    $(function(){
+        var a =document.getElementsByName("bjid");
+        if(a.length==0){
+            window.location.href="gys";
+        }
+    })
+</script>
 </html>

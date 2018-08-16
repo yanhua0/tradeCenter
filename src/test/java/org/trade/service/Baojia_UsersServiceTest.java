@@ -18,10 +18,10 @@ public class Baojia_UsersServiceTest {
     private UsersMapper usersMapper;
     @Test
     public void check3() {
-        int id[]={286,290};
-        Users users=usersMapper.selectByPrimaryKey(4);
+        int id[]={12,13};
+        Users users=usersMapper.selectByPrimaryKey(3);
         int bid=12;
-        int bgid[]={22,23};
+        int bgid[]={11,12};
         baojia_usersService.check3(id,users,bid,bgid);
     }
 }

@@ -82,7 +82,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="buyInfo" items="${page.list}" varStatus="status">
+                <c:forEach var="buyInfo" items="${page}" varStatus="status">
                     <tr>
                         <td>${status.index+1}</td>
                         <td>${buyInfo.sno}</td>
@@ -104,48 +104,7 @@
 
                 </tbody>
             </table>
-            <%--分页实现--%>
-            <c:if test="${page.pages>1}">
 
-            <div class="test">
-                <ul class="pagination">
-                    <c:if test="${page.isFirstPage==true}">
-                        <li><a>首页</a></li>
-                    </c:if>
-                    <c:if test="${page.isFirstPage==false}">
-                        <li><a href="list?page=${page.firstPage}">首页</a></li>
-                    </c:if>
-                    <c:if test="${page.hasPreviousPage==true}">
-                        <li><a href="list?page=${page.prePage}">&laquo;</a></li>
-                    </c:if>
-                    <c:if test="${page.hasPreviousPage==false}">
-                        <li><a>&laquo;</a></li>
-                    </c:if>
-
-
-                    <c:forEach begin="1" end="${page.pages}" var="index">
-                        <c:if test="${page.pageNum==index}">
-                            <li>
-                                <a style="background-color: #337ab7;color:#fff">${index}</a></li>
-                        </c:if>
-                        <c:if test="${page.pageNum!=index}">
-                            <li><a href="list?page=${index}">${index}</a></li>
-                        </c:if>
-                    </c:forEach>
-                    <c:if test="${page.hasNextPage==true}">
-                        <li><a href="list?page=${page.nextPage}">&raquo;</a></li>
-                    </c:if>
-                    <c:if test="${page.hasNextPage==false}">
-                        <li><a>&raquo;</a></li>
-                    </c:if>
-                    <c:if test="${page.isLastPage==true}">
-                        <li><a>末页</a></li>
-                    </c:if>
-                    <c:if test="${page.isLastPage==false}">
-                        <li><a href="list?page=${page.lastPage}">末页</a></li>
-                    </c:if>
-                </ul>
-                </c:if>
             </div>
 
             </tbody>

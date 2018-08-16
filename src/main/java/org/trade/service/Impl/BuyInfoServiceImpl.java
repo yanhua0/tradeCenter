@@ -80,8 +80,8 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         //插入
         else{
             buyInfo.setCheckLevel(-1);
-            SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("YYYY-MM-dd");
-            String s=simpleDateFormat1.format(buyInfo.getCreateTime());
+            SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String s=simpleDateFormat1.format(new Date());
             buyInfo.setSno(buyInfo.getCreateCompany()+"-"+s);
             int c=buyInfoMapper.insert(buyInfo);//插入时返回id
             BuyInfo_Users buyInfo_users=new BuyInfo_Users();
@@ -137,13 +137,11 @@ public class BuyInfoServiceImpl implements BuyInfoService {
     }
 
     @Override
-    public PageInfo<BuyInfo> findAllInEffectiveTime(int page) {
-        PageHelper.startPage(page, 5);
+    public List<BuyInfo> findAllInEffectiveTime() {
         Date now=new Date();
         List<BuyInfo> list=buyInfoMapper.findAllInEffectiveTime(now);
-        return new PageInfo<BuyInfo>(list);
-
-    }
+        return list;
+        }
 
     @Override
     public List<BuyInfo> selectSuppliers1() {
@@ -158,6 +156,12 @@ public class BuyInfoServiceImpl implements BuyInfoService {
     @Override
     public List<BuyInfo> selectSuppliers3() {
         return  buyInfoMapper.selectSuppliers3();
+    }
+
+    @Override
+    public List<BuyInfo> find() {
+        Date d=new Date();
+        return buyInfoMapper.findAllInEffectiveTime(d);
     }
 
 //    @Override

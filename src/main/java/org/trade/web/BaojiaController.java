@@ -1,6 +1,5 @@
 package org.trade.web;
 
-import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +34,11 @@ public class BaojiaController {
 
     //UI查询所有可以报价的采购信息
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String baojiaUi(Model model, HttpSession session, @RequestParam(value = "page", defaultValue = "1", required = true) Integer page1) {
+    public String baojiaUi(Model model, HttpSession session) {
         Users users = (Users) session.getAttribute("users");
         try {
             if (users.getRole().getAction().equals("阳光用户")) {
-                PageInfo<BuyInfo> p = buyInfoService.findAllInEffectiveTime(page1);
+                List<BuyInfo> p = buyInfoService.findAllInEffectiveTime();
                 model.addAttribute("page", p);
             } else {
                 throw new TradeException("权限不足！！username=" + users.getUsername());
@@ -60,6 +59,9 @@ public class BaojiaController {
         try {
             if (users.getRole().getAction().equals("阳光用户")) {
                 BuyInfo buyInfo = buyInfoService.findById(id);
+                if (buyInfo == null) {
+                    return "redirect:/list";
+                }
                 Baojia baojia = baojiaService.findCheckInfo(id, users.getId());
                 if (buyInfo.getBaojiaPrice() != -1) {
                     double price = buyInfo.getBaojiaPrice() * buyInfo.getNumber();//要缴纳的保证金计算
@@ -67,10 +69,7 @@ public class BaojiaController {
                 } else {
                     model.addAttribute("price", "不要求保证金。");
                 }
-                if (baojia != null) {
-
-                    model.addAttribute("baojia", baojia);
-                }
+                model.addAttribute("baojia", baojia);
                 model.addAttribute("buyInfo", buyInfo);
             } else {
                 logger.error("权限不足！！username=" + users.getUsername());
@@ -103,13 +102,8 @@ public class BaojiaController {
                     model.addAttribute("price", total);//将保证金放入Model
                 }
 
-//                double t = Double.parseDouble(transportPrices);//运费单价
-//
-//                double unitprice = Double.parseDouble(prices);//单价
-//                  double price=(t+unitprice)*baojia.getNumber();//总价
-//                baojia.setTransportPrice();
-//                baojia.setUnitPrice(unitprice);
-                baojiaService.insert(baojia, bid, users.getId(),transportPrices,prices);
+
+                baojiaService.insert(baojia, bid, users.getId(), transportPrices, prices);
 
                 model.addAttribute("number", baojia.getNumber());//数量放入model
 
@@ -160,10 +154,10 @@ public class BaojiaController {
 
         if (buyInfo.getBaojiaPrice() == -1 && baojia1 == null) {
             //不要求报价直接提交表单
-            baojiaService.insert(baojia, bid, user.getId(),transportPrice,unitPrice);
+            baojiaService.insert(baojia, bid, user.getId(), transportPrice, unitPrice);
             return new PayResult<String>(TradeEnum.UPDATA);
         }
-        return baojiaService.updateBaojia(baojia, bid, user.getId(),transportPrice,unitPrice);
+        return baojiaService.updateBaojia(baojia, bid, user.getId(), transportPrice, unitPrice);
     }
 
     //查询需要第(1,2,3)级筛选供应商的采购订单
@@ -203,6 +197,12 @@ public class BaojiaController {
                     List<Baojia_Gys> baojia_gys = baojia_gysService.findAllChecklevel1(id);
                     model.addAttribute("buyInfo", buyInfo);
                     model.addAttribute("baojia_gys", baojia_gys);
+                    if (buyInfo.getBaojiaPrice() != -1) {
+                        double price = buyInfo.getBaojiaPrice() * buyInfo.getNumber();//要缴纳的保证金计算
+                        model.addAttribute("price", price);
+                    } else {
+                        model.addAttribute("price", "不要求保证金。");
+                    }
                     return "gys1";
                 }
             } else {
@@ -228,6 +228,12 @@ public class BaojiaController {
                     List<Baojia_Gys> baojia_gys = baojia_gysService.findAllChecklevel2(id);
                     model.addAttribute("buyInfo", buyInfo);
                     model.addAttribute("baojia_gys", baojia_gys);
+                    if (buyInfo.getBaojiaPrice() != -1) {
+                        double price = buyInfo.getBaojiaPrice() * buyInfo.getNumber();//要缴纳的保证金计算
+                        model.addAttribute("price", price);
+                    } else {
+                        model.addAttribute("price", "不要求保证金。");
+                    }
                     return "gys2";
                 }
             } else {
@@ -255,6 +261,12 @@ public class BaojiaController {
                     model.addAttribute("buyInfo", buyInfo);
                     model.addAttribute("baojia_gys", baojia_gys);
                     model.addAttribute("bu", baojia_users);
+                    if (buyInfo.getBaojiaPrice() != -1) {
+                        double price = buyInfo.getBaojiaPrice() * buyInfo.getNumber();//要缴纳的保证金计算
+                        model.addAttribute("price", price);
+                    } else {
+                        model.addAttribute("price", "不要求保证金。");
+                    }
                     return "gys3";
                 }
             } else {
@@ -270,23 +282,23 @@ public class BaojiaController {
     //作废操作
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     public String del(HttpSession session, @RequestParam("bjid") int bjid[],
-                      @RequestParam("advice") String advice, @RequestParam("id") int id[],@RequestParam("bid") int bid) {
+                      @RequestParam("advice") String advice, @RequestParam("id") int id[], @RequestParam("bid") int bid) {
         Users users = (Users) session.getAttribute("users");
         try {
             if (users.getRole().getAction().equals("分子公司审核")) {
                 baojia_gysService.refuse(bjid, advice, users.getName(), id);//第一个id是报价信息的id，第二个是关联表的id
-                return "redirect:gys1?id="+bid;
+                return "redirect:gys1?id=" + bid;
             } else if (users.getRole().getAction().equals("分子公司审批")) {
                 baojia_gysService.refuse(bjid, advice, users.getName(), id);//第一个id是报价信息的id，第二个是关联表的id
-                return "redirect:gys3?id="+bid;
+                return "redirect:gys3?id=" + bid;
             } else {
                 throw new TradeException("权限不足!");
             }
         } catch (TradeException e) {
             throw e;
         } catch (Exception e1) {
-            logger.error("系统出错!"+e1.getMessage());
-            throw new TradeException(e1.getMessage()+"----系统错误");
+            logger.error("系统出错!" + e1.getMessage());
+            throw new TradeException(e1.getMessage() + "----系统错误");
         }
         //第二个id是关联表的Id
     }
@@ -299,7 +311,7 @@ public class BaojiaController {
             Users users = (Users) session.getAttribute("users");
             if (users.getRole().getAction().equals("分子公司审核")) {
                 baojia_usersService.check1(id, advice, users, bid);
-                return "redirect:gys1?id="+bid;
+                return "redirect:gys1?id=" + bid;
             } else {
                 throw new TradeException("权限不足!" + users.getUsername());
             }
@@ -310,6 +322,7 @@ public class BaojiaController {
         }
 
     }
+
     //第二级审核通过
     @RequestMapping(value = "/checkLevel2", method = RequestMethod.POST)
     public String checkLevel2(HttpSession session, @RequestParam("bjid") int id[],
@@ -318,7 +331,7 @@ public class BaojiaController {
             Users users = (Users) session.getAttribute("users");
             if (users.getRole().getAction().equals("电厂审核")) {
                 baojia_usersService.check2(id, advice, users, bid);
-                return "redirect:gys2?id="+bid;
+                return "redirect:gys2?id=" + bid;
             } else {
                 throw new TradeException("权限不足!" + users.getUsername());
             }
@@ -332,13 +345,13 @@ public class BaojiaController {
     //第三级审核通过
 
     @RequestMapping(value = "/checkLevel3", method = RequestMethod.POST)
-    public String checkLevel3(HttpSession session, @RequestParam("bjid") int id[],@RequestParam("id") int bgid[],
+    public String checkLevel3(HttpSession session, @RequestParam("bjid") int id[], @RequestParam("id") int bgid[],
                               @RequestParam("bid") int bid) {
         try {
             Users users = (Users) session.getAttribute("users");
             if (users.getRole().getAction().equals("分子公司审批")) {
-                baojia_usersService.check3(id, users, bid,bgid);
-                return "redirect:gys3?id="+bid;
+                baojia_usersService.check3(id, users, bid, bgid);
+                return "redirect:gys3?id=" + bid;
             } else {
                 throw new TradeException("权限不足!" + users.getUsername());
             }

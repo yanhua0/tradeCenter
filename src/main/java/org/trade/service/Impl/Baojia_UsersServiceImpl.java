@@ -91,6 +91,8 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                 List<Users> userlist = new ArrayList<Users>();
                 Mes[] mes = new Mes[bg.size()];
                 Users[] us = new Users[bg.size()];
+                double money = bg.get(0).getBaojia().getBuyInfo().getUsers().getMoney();
+                double freeze2 = bg.get(0).getBaojia().getBuyInfo().getUsers().getFreezeMoney2();
                 //将驳回的人员信息放入集合
                 for (int i = 0; i < bg.size(); i++) {
                     mes[i] = new Mes();
@@ -100,18 +102,31 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                     mes[i].setMessage("你报价的订单号为<span>" + bg.get(i).getBaojia().getBuyInfo().getSno() + "</span>已经中标!!系统已经自动退还冻结的保证金");
                     list.add(mes[i]);
                     //归还报价保证金
-                    double price=0;
-                    if(bg.get(i).getBaojia().getBuyInfo().getBaojiaPrice()!=-1){
-                        price=bg.get(i).getBaojia().getNumber()*bg.get(i).getBaojia().getBuyInfo().getBaojiaPrice();
+                    double price = 0;
+                    if (bg.get(i).getBaojia().getBuyInfo().getBaojiaPrice() != -1) {
+                        price = bg.get(i).getBaojia().getNumber() * bg.get(i).getBaojia().getBuyInfo().getBaojiaPrice();
                     }
                     double pre = bg.get(i).getGys().getUsers().getMoney() + price;
                     double freeze = bg.get(i).getGys().getUsers().getFreezeMoney() - price;
-                    us[i]=new Users();
+                    us[i] = new Users();
                     us[i].setFreezeMoney(freeze);
                     us[i].setMoney(pre);
                     us[i].setId(bg.get(i).getGys().getUid());
                     userlist.add(us[i]);
+                    double price1 = 0;
+
+
+                    if (bg.get(i).getBaojia().getBuyInfo().getAgreePrice() != -1) {
+                        price1 = bg.get(i).getBaojia().getBuyInfo().getAgreePrice() * bg.get(i).getBaojia().getNumber();
+                    }
+                    System.out.println(price1);
+
+                    money = money - price1;
+                    freeze2 = freeze2 + price1;
+
+
                 }
+
                 usersMapper.updateSome(userlist);
                 mesMapper.insertListMes(list);
                 //系统自动解冻报价保证金，冻结履约保证金
@@ -121,16 +136,8 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                 m.setSendname(users.getName());
                 m.setMessage("你的订单号为<span>" + bg.get(0).getBaojia().getBuyInfo().getSno() + "</span>已经有供应商报价成功!!系统已经自动缴纳履约保证金");
                 mesMapper.insert(m);//给创建采购需求的人发送信息
-                double price1=0;
-
-                //冻结履约保证金
-                if(bg.get(0).getBaojia().getBuyInfo().getAgreePrice()!=-1){
-                    price1=bg.get(0).getBaojia().getBuyInfo().getAgreePrice()*bg.get(0).getBaojia().getNumber();
-                }
-                System.out.println(price1);
-                Users u=new Users();
-                double money=bg.get(0).getBaojia().getBuyInfo().getUsers().getMoney()-price1;
-                double freeze2=bg.get(0).getBaojia().getBuyInfo().getUsers().getFreezeMoney2()+price1;
+               //冻结履约保证金
+                Users u = new Users();
                 u.setId(bg.get(0).getBaojia().getBuyInfo().getUid());
                 u.setMoney(money);
                 u.setFreezeMoney2(freeze2);

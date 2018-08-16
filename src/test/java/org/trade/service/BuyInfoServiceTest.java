@@ -17,8 +17,9 @@ public class BuyInfoServiceTest {
     @Autowired
     private BuyInfoMapper buyInfoMapper;
     @Test
-    public void create() {
-        System.out.println(buyInfoService.findAll());
+    public void create(){
+   // buyInfoService.findAllInEffectiveTime(1);
+      //  System.out.println(buyInfoService.findAllInEffectiveTime(1).getList().size());
     }
 
     @Test
@@ -27,5 +28,10 @@ public class BuyInfoServiceTest {
 
         System.out.println(b.getBaojiaPrice()==-1);
        // buyInfoMapper.updateByPrimaryKey(b);
+    }
+
+    @Test
+    public void find() {
+        System.out.println(buyInfoService.find());
     }
 }

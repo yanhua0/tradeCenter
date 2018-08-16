@@ -108,12 +108,19 @@ public class BuyInfoController {
         return "redirect:/add";
     }
    //展示采购信息
-   @RequestMapping(value = "show", method = RequestMethod.GET)
+   @RequestMapping(value = "/show", method = RequestMethod.GET)
     public String show(Model model,@RequestParam("id") int id){
         BuyInfo b=buyInfoService.findById(id);
         if(b!=null){
             model.addAttribute("buyInfo",b);
+            if (b.getBaojiaPrice() != -1) {
+                double price = b.getBaojiaPrice() * b.getNumber();//要缴纳的保证金计算
+                model.addAttribute("price", price);
+            } else {
+                model.addAttribute("price", "不要求保证金。");
+            }
         }
+
         //防止用户通过url随便传值
         else{
             return "forward:/add";
@@ -205,7 +212,6 @@ public class BuyInfoController {
                     return "redirect:/member";
                 }
                 double i=buyInfo.getNumber()*buyInfo.getBaojiaPrice();
-
                 if(i>=0){
                     model.addAttribute("price",i);
                 }

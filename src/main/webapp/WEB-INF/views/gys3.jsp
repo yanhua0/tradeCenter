@@ -811,7 +811,7 @@ word-wrap: break-word;
         <td>${bu.users.role.action}</td>
         <td>${bu.users.role.action}</td>
         <td>${bu.checkAdvice}</td>
-        <td><fmt:formatDate value="${bu.checkTime}" pattern="yyyy/MM/dd HH-mm" /></td>
+        <td><fmt:formatDate value="${bu.checkTime}" pattern="yyyy/MM/dd HH:mm" /></td>
 
       </tr>
      </c:forEach>
@@ -841,6 +841,7 @@ word-wrap: break-word;
           })
           $("#confirm").click(function () {
               if(check()!=false){
+                  alert("审核信息已经提交!");
                   $("#form").attr("action","checkLevel3");
                   $("#form").submit();
               }
@@ -869,5 +870,13 @@ word-wrap: break-word;
           }
       })
   </script>
+    <script>
+        $(function(){
+            var a =document.getElementsByName("bjid");
+            if(a.length==0){
+                window.location.href="gys";
+            }
+        })
+    </script>
 </body>
 </html>

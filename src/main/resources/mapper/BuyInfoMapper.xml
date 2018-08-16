@@ -70,10 +70,14 @@
         select *from buyinfo where check_level=1 order by create_time desc
     </select>
     <select id="findAllInEffectiveTime" resultType="org.trade.entity.BuyInfo">
-        select *from buyinfo where
-        check_level=2
-        and create_time <![CDATA[ <= ]]> #{nowTime}
-        and end_time >= #{nowTime}
+        select
+         *
+        from buyinfo b inner join baojia bj on b.id=bj.bid where
+        (bj.check_level=0 or bj.check_level=-1)
+        and b.check_level=2
+        and b.create_time <![CDATA[ <= ]]> #{nowTime}
+        and b.end_time >= #{nowTime}
+        group by b.id
     </select>
 
     <select id="selectSuppliers1" resultType="org.trade.entity.BuyInfo">

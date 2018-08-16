@@ -22,10 +22,6 @@ public class BuyInfo_UsersController {
     @ResponseBody
     public int checkInfo1(HttpSession session,BuyInfo buyInfo){
         //防止用户传其他值
-        System.out.println(buyInfo.getOpo());
-        System.out.println(!buyInfo.getOpo().equals("yes"));
-        System.out.println(!buyInfo.getOpo().equals("no"));
-        System.out.println(!buyInfo.getOpo().equals("yes")&&!buyInfo.getOpo().equals("no"));
         if(!buyInfo.getOpo().equals("yes")&&!buyInfo.getOpo().equals("no")){
             return 0;
         }

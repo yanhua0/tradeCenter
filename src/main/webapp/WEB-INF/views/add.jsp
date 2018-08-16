@@ -145,7 +145,7 @@
     </div>
 
     <c:if test="${users.role.action.equals('电厂创建')}">
-        <a href="addSupplier" target="content" class="title1">&nbsp;&nbsp;发布销售信息..</a></c:if>
+        <a href="supplier" target="content" class="title1">&nbsp;&nbsp;发布销售信息..</a></c:if>
     <div class="title">销售信息</div>
     <hr>
     <div class="panel">
