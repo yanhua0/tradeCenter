@@ -82,7 +82,7 @@ public class BuyInfoServiceImpl implements BuyInfoService {
             buyInfo.setCheckLevel(-1);
             SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("yyyyMMddHHmmssSSS");
             String s=simpleDateFormat1.format(new Date());
-            buyInfo.setSno(buyInfo.getCreateCompany()+"-"+s);
+            buyInfo.setSno(s);
             int c=buyInfoMapper.insert(buyInfo);//插入时返回id
             BuyInfo_Users buyInfo_users=new BuyInfo_Users();
             buyInfo_users.setBid(buyInfo.getId());

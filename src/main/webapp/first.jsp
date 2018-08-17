@@ -56,7 +56,7 @@
 </head>
 <body id="body">
 <div  class="container">
-<a href="add" target="content" class="title1">&nbsp;&nbsp;更多</a>
+<a href="add" target="content" class="title1">&nbsp;&nbsp;更多..</a>
 <div class="title">采购信息</div>
 <hr>
   <div class="panel">
@@ -84,7 +84,7 @@
 
 
 </div>
-<a href="add" target="content" class="title1">&nbsp;&nbsp;更多</a>
+<a href="add" target="content" class="title1">&nbsp;&nbsp;更多..</a>
 <div class="title">销售信息</div>
 <hr>
 <div class="panel">

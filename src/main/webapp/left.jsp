@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Iconos -->
-
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="http://www.jq22.com/jquery/font-awesome.4.6.0.css" rel="stylesheet">
 
 
@@ -47,15 +47,15 @@
 
         <ul class="submenu aa">
             <c:if test="${users.role.action.equals('阳光用户')}">
-                <li><a href="list" target="content">参与报价</a></li>
+                <li><a href="list" target="content" class="fi" rel="popover" data-content="对采购订单报价并交纳保证金"  data-placement="top">参与报价</a></li>
             </c:if>
             <c:if test="${users.role.action.contains('分子公司')}">
-                <li><a href="gys" target="content">选择供应商</a></li>
+                <li><a href="gys" target="content" class="fi" rel="popover" data-content="选择符合条件的供应商"  data-placement="top">选择供应商</a></li>
             </c:if>
             <c:if test="${users.role.action.equals('电厂审核')}">
-                <li><a href="gys" target="content">选择供应商</a></li>
+                <li><a href="gys" target="content" class="fi" rel="popover" data-content="选择符合条件的供应商"  data-placement="top">选择供应商</a></li>
             </c:if>
-            <li><a href="mes" target="content">系统通知</a></li>
+            <li><a href="mes" target="content" class="fi" rel="popover" data-content="查看收到的消息"  data-placement="top">账户消息</a></li>
 
 
         </ul>
@@ -66,9 +66,9 @@
         <!-- 这里做权限管理 -->
         <div class="link"><i class="fa fa-code"></i>采购信息<i class="fa fa-chevron-down"></i></div>
         <ul class="submenu">
-            <li><a href="add" target="content">采购信息</a></li>
-            <li><a href="add" target="content">销售信息</a></li>
-            <li><a href="supplier" target="content">发布销售信息</a></li>
+            <li><a href="add" target="content" class="fi" rel="popover" data-content="查看采购信息"  data-placement="top">采购信息</a></li>
+            <li><a href="add" target="content" class="fi" rel="popover" data-content="查看销售信息"  data-placement="top">销售信息</a></li>
+            <li><a href="supplier" target="content" class="fi" rel="popover" data-content="发布销售信息"  data-placement="top">发布销售信息</a></li>
         </ul>
 
     </li>
@@ -78,7 +78,7 @@
         <div class="link"><i class="fa fa-mobile"></i>个人账户<i class="fa fa-chevron-down"></i></div>
 
         <ul class="submenu">
-            <li><a href="money1" target="content">保证金查看</a></li>
+            <li><a href="money1" target="content" class="fi" rel="popover" data-content="查看账户可用金额冻结金额"  data-placement="top">保证金查看</a></li>
 
         </ul>
 
@@ -113,6 +113,12 @@
 </ul>
 <script src='static/js/jquery.js'></script>
 <script src="static/js/index.js"></script>
-
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $(".fi").popover({trigger: 'hover'});
+    });
+</script>
 </body>
 </html>

@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>国电煤炭电商平台</title>
+	<link rel="Shortcut icon" href="http://www.jq22.com/favicon.ico">
 	<script src="static/js/jquery-1.11.1.min.js"></script>
 	<script src="static/js/plug-in.js"></script>
 	<style>

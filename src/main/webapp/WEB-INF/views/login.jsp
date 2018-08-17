@@ -5,8 +5,10 @@
 <head><title>国电煤炭电商平台</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="Shortcut icon" href="http://www.jq22.com/favicon.ico">
 	<link href="static/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" href="static/css/bg.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<style>
 
 		.theme{
@@ -38,22 +40,19 @@
 		#box{
 			position:absolute;
 			z-index:5;
-			animation:css 0.8s;
-			animation-iteration-count:1;
-		    -webkit-animation:css 0.8s; /* Safari and Chrome */
-			-webkit-animation-iteration-count:1;
+			display: none;
 		}
-		@keyframes css
-		{
-			from {transform: rotate(0deg);}
-			to {transform: rotate(360deg);}
-		}
-		/* Safari and Chrome */
-		@-webkit-keyframes css
-		{
-			from {transform: rotate(0deg);}
-			to {transform: rotate(360deg);}
-		}
+		/*@keyframes css*/
+		/*{*/
+			/*from {transform: rotate(0deg);}*/
+			/*to {transform: rotate(360deg);}*/
+		/*}*/
+		/*!* Safari and Chrome *!*/
+		/*@-webkit-keyframes css*/
+		/*{*/
+			/*from {transform: rotate(0deg);}*/
+			/*to {transform: rotate(360deg);}*/
+		/*}*/
 	</style>
 
 </head>
@@ -86,4 +85,8 @@
 
 	</div>
 </body>
+<script>
+
+	$("#box").fadeIn(1000);
+</script>
 </html>

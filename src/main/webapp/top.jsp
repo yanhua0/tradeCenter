@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>国电煤炭电商平台</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         *{
             margin: 0;
@@ -51,7 +53,7 @@
         }
 
         #img{
-            height:110px;
+            height:100px;
             transition: all 1.6s;
              animation:myfirst 2s;
             animation-iteration-count:3;/*infinite*/
@@ -111,25 +113,24 @@ span{
 <body>
 
     <div style="" id="frist">
-        <img id="img" src="static/images/u5.jpg" alt="logo" style="position: relative">
+        <img id="img" src="static/images/5.png" alt="logo" style="position: relative">
         <div id="ul1">
          
             <ul>
-                <li><a href="first.jsp" target="content">首页</a></li>
-                <li><a href="add" target="content">交易中心</a></li>
+                <li><a href="first.jsp" class="fi" target="content" rel="popover" data-content="返回网站首页"  data-placement="left" >首页</a></li>
+                <li><a href="add"  target="content" class="fi" rel="popover" data-content="查看采购信息和销售信息"  data-placement="top" >交易中心</a></li>
                 <c:if test="${users.role.action.equals('电厂审核')}">
 
-                <li><a href="member" target="content">会员中心</a></li> </c:if>
+                <li><a href="member" target="content" class="fi" rel="popover" data-content="审核创建的采购订单"  data-placement="top">会员中心</a></li> </c:if>
                 <c:if test="${users.role.action.contains('分子公司')}">
-                    <li><a href="member" target="content">会员中心</a></li>
+                    <li><a href="member" target="content" class="fi" rel="popover" data-content="审核创建的采购订单"  data-placement="top">会员中心</a></li>
                 </c:if>
-                <li><a href="mes" target="content">系统消息</a></li>
-                <li><a href="login" target="_top">
-                    <c:if test="${users==null}">
-                    登录</c:if>
+                <li><a href="mes" target="content" class="fi" rel="popover" data-content="查看收到的信息"  data-placement="top">账户消息</a></li>
+                <li><c:if test="${users==null}">
+                        <a href="login" target="_top" class="fi" rel="popover" data-content="跳转登录页面"  data-placement="right">登录</a></c:if>
                     <c:if test="${users!=null}">
-                        退出</c:if>
-                </a></li>
+                        <a href="login" target="_top" class="fi" rel="popover" data-content="退出当前账号"  data-placement="right">退出</a></c:if>
+                </li>
             </ul>
         </div>
         <c:if test="${users!=null}">
@@ -137,4 +138,9 @@ span{
         </c:if>
         <div></div>
     </body>
+<script>
+    $(function () {
+        $(".fi").popover({trigger: 'hover'});
+    });
+</script>
     </html>

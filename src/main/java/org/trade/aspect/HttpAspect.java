@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -61,6 +60,6 @@ public class HttpAspect {
     @AfterThrowing(value = "log()",throwing ="e")
     public void  afterThrowing(JoinPoint joinPoint,Exception e){
         String name = joinPoint.getSignature().getName();
-        logger.error("返回通知：异常新闻---"+e+"名字"+name);
+        logger.error("返回通知：异常新闻---"+e+"--名字"+name);
     }
 }

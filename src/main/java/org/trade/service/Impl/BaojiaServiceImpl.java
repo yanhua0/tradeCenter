@@ -137,6 +137,10 @@ public class BaojiaServiceImpl implements BaojiaService {
         }
         Baojia baojia1 = baojiaMapper.findByCheckInfo(buyInfo.getId(), uid);
         double totalprice = buyInfo.getBaojiaPrice() * number;//
+        double unit=Double.parseDouble(Base64.getFromBase64(baojia1.getUnitPrice()));//计算修改的报价价格
+        double tran=Double.parseDouble(Base64.getFromBase64(baojia1.getTransportPrice()));
+        double price1 = (unit+tran) * number;
+        String price=DoubleToString.dToS(price1);
         //用户付钱
         Users u = usersMapper.selectByPrimaryKey(uid);
         if (u.getMoney() - totalprice < 0) {
@@ -147,6 +151,7 @@ public class BaojiaServiceImpl implements BaojiaService {
         usersMapper.updateByPrimaryKey(u);
         baojia1.setCheckLevel(0);//已经缴纳保证金
         baojia1.setNumber(number);
+        baojia1.setPrice(Base64.getBase64(price));
         baojiaMapper.updateByPrimaryKey(baojia1);
         return new PayResult<BuyInfo>(TradeEnum.SUCCESS, buyInfo);
 
