@@ -18,7 +18,11 @@ public class UsersMapperTest {
 
     @Test
     public void selectByPrimaryKey() {
-        logger.info("00000000000000");
+        System.out.println(usersMapper.selectByPrimaryKey(1).getFreezeMoney2());
 
+    }
+
+    @Test
+    public void selectByPrimaryKey1() {
     }
 }

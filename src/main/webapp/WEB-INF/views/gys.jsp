@@ -69,6 +69,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="buyInfo" items="${buyInfo}" varStatus="status">
+                    <tr>
                     <td>${status.index+1}</td>
                     <td>${buyInfo.sno}</td>
                     <td>${buyInfo.applicant}</td>
@@ -86,7 +87,7 @@
 
                     <td>
                         <!-- 报价后的连接 -->
-                        <c:if test="${buyInfo.checkLevel==2}">
+                        <c:if test="${buyInfo.checkLevel>=2}">
                             <c:if test="${users.role.action.equals('分子公司审核')}">
                                 <a href="gys1?id=${buyInfo.id}" target="content">审核</a>
                             </c:if>
@@ -100,7 +101,7 @@
                     </td>
                     </tr>
                 </c:forEach>
-                <tr>
+
                 </tbody>
             </table>
 

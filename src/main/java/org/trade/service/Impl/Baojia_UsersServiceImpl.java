@@ -100,12 +100,7 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                 double freeze2 = bg.get(0).getBaojia().getBuyInfo().getUsers().getFreezeMoney2();
                 //将驳回的人员信息放入集合
                 for (int i = 0; i < bg.size(); i++) {
-                    mes[i] = new Mes();
-                    mes[i].setReceieveid(bg.get(i).getGys().getUid());
-                    mes[i].setState(0);
-                    mes[i].setSendname(users.getName());
-                    mes[i].setMessage("你报价的订单号为<span>" + bg.get(i).getBaojia().getBuyInfo().getSno() + "</span>已经中标!!系统已经自动退还冻结的保证金");
-                    list.add(mes[i]);
+
                     //归还报价保证金
                     double price = 0;
                     if (bg.get(i).getBaojia().getBuyInfo().getBaojiaPrice() != -1) {
@@ -120,15 +115,19 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                     userlist.add(us[i]);
                     double price1 = 0;
 
-
+                  //计算履约保证金
                     if (bg.get(i).getBaojia().getBuyInfo().getAgreePrice() != -1) {
                         price1 = bg.get(i).getBaojia().getBuyInfo().getAgreePrice() * bg.get(i).getBaojia().getNumber();
                     }
-                    System.out.println(price1);
-
                     money = money - price1;
                     freeze2 = freeze2 + price1;
-
+                    //发送消息
+                    mes[i] = new Mes();
+                    mes[i].setReceieveid(bg.get(i).getGys().getUid());
+                    mes[i].setState(0);
+                    mes[i].setSendname(users.getName());
+                    mes[i].setMessage("你报价的订单号为<span>" + bg.get(i).getBaojia().getBuyInfo().getSno() + "</span>已经中标!!系统已经自动退还冻结的报价保证金<span>"+price+"</span>元");
+                    list.add(mes[i]);
 
                 }
 
@@ -139,7 +138,7 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                 m.setReceieveid(bg.get(0).getBaojia().getBuyInfo().getUid());
                 m.setState(0);
                 m.setSendname(users.getName());
-                m.setMessage("你的订单号为<span>" + bg.get(0).getBaojia().getBuyInfo().getSno() + "</span>已经有供应商报价成功!!系统已经自动缴纳履约保证金");
+                m.setMessage("你的订单号为<span>" + bg.get(0).getBaojia().getBuyInfo().getSno() + "</span>已经有供应商报价成功!!系统已经自动缴纳履约保证金<span>"+freeze2+"</span>元");
                 mesMapper.insert(m);//给创建采购需求的人发送信息
                //冻结履约保证金
                 Users u = new Users();

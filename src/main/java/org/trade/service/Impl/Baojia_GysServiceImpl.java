@@ -76,7 +76,7 @@ public class Baojia_GysServiceImpl implements Baojia_GysService{
                 mes[i].setReceieveid(bg.get(i).getGys().getUid());
                 mes[i].setState(0);
                 mes[i].setSendname(name);
-                mes[i].setMessage("你对订单号为<span>"+bg.get(i).getBaojia().getBuyInfo().getSno() + "</span>的报价信息已经作废,<span>保证金已自动返还账户！</span>作废理由：" + advice);
+                mes[i].setMessage("你对订单号为<span>"+bg.get(i).getBaojia().getBuyInfo().getSno() + "</span>的报价信息已经作废,保证金<span>"+price+"元</span>已自动返还账户！作废理由：" + advice);
                 list.add(mes[i]);
             }
 

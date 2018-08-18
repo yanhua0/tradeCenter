@@ -12,7 +12,7 @@ public interface BuyInfoService {
     void updateBuyInfo(String bj,String bjp,String lj,String ap,String endTimes,String createTimes,String stimes,String etimes,
                        BuyInfo buyInfo,HttpSession session) throws ParseException;
     BuyInfo findById(int id);
-
+    BuyInfo  findByIdAndCheckLevel(int id);
     int save(BuyInfo buyInfo);
     BuyInfo checkState(int uid);
     List<BuyInfo> findAll();

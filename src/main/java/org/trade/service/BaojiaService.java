@@ -11,4 +11,5 @@ public interface BaojiaService {
    PayResult<String> updateBaojia(Baojia baojia,int bid,int uid,String transportPrice,String unitPrice) throws Exception;
    PayResult<BuyInfo> payMoney(int id,int uid,int number);
 
+
 }

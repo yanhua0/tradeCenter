@@ -98,6 +98,12 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         BuyInfo buyInfo=buyInfoMapper.selectByPrimaryKey(id);
         return buyInfo;
     }
+
+    @Override
+    public BuyInfo findByIdAndCheckLevel(int id) {
+        return buyInfoMapper.selectByCheckLevel(id);
+    }
+
     //提交采购信息
     @Override
     public int save(BuyInfo buyInfo) {

@@ -16,7 +16,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, rid, username, password, name, money, freeze_money
+    id, rid, username, password, name, money, freeze_money, freeze_money2
   </sql>
   <select id="selectByUsersId" resultType="org.trade.entity.Role">
     select *from role where id=#{rid}

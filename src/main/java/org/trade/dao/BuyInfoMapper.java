@@ -14,6 +14,7 @@ public interface BuyInfoMapper {
     int insertSelective(BuyInfo record);
 
     BuyInfo selectByPrimaryKey(Integer id);
+    BuyInfo selectByCheckLevel(Integer id);
 
     int updateByPrimaryKeySelective(BuyInfo record);
 

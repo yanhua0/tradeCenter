@@ -35,6 +35,8 @@ public class BaojiaServiceImpl implements BaojiaService {
         return baojiaMapper.selectByPrimaryKey(id);
     }
 
+
+
     @Override
     public Baojia findCheckInfo(int bid, int uid) {
         Baojia baojia=baojiaMapper.findByCheckInfo(bid, uid);

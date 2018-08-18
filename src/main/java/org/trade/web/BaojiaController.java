@@ -59,7 +59,7 @@ public class BaojiaController {
         Users users = (Users) session.getAttribute("users");
         try {
             if (users.getRole().getAction().equals("阳光用户")) {
-                BuyInfo buyInfo = buyInfoService.findById(id);
+                BuyInfo buyInfo = buyInfoService.findByIdAndCheckLevel(id);
                 if (buyInfo == null) {
                     return "redirect:/list";
                 }

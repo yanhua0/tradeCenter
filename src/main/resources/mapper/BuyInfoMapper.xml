@@ -49,6 +49,12 @@
         *
         from buyinfo
         where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByCheckLevel" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        *
+        from buyinfo
+        where id = #{id,jdbcType=INTEGER}
         and check_level=2
     </select>
     <select id="checkState" resultType="org.trade.entity.BuyInfo">
