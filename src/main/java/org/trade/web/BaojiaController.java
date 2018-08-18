@@ -1,5 +1,6 @@
 package org.trade.web;
 
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,11 @@ public class BaojiaController {
 
     //UI查询所有可以报价的采购信息
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String baojiaUi(Model model, HttpSession session) {
+    public String baojiaUi(Model model, HttpSession session,@RequestParam(value = "page",defaultValue = "1",required = true)int page) {
         Users users = (Users) session.getAttribute("users");
         try {
             if (users.getRole().getAction().equals("阳光用户")) {
-                List<BuyInfo> p = buyInfoService.findAllInEffectiveTime();
+                PageInfo<BuyInfo> p = buyInfoService.findAllInEffectiveTime(page);
                 model.addAttribute("page", p);
             } else {
                 throw new TradeException("权限不足！！username=" + users.getUsername());

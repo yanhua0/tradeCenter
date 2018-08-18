@@ -137,10 +137,11 @@ public class BuyInfoServiceImpl implements BuyInfoService {
     }
 
     @Override
-    public List<BuyInfo> findAllInEffectiveTime() {
+    public  PageInfo<BuyInfo> findAllInEffectiveTime(int page) {
+        PageHelper.startPage(page,5);
         Date now=new Date();
         List<BuyInfo> list=buyInfoMapper.findAllInEffectiveTime(now);
-        return list;
+        return new PageInfo<BuyInfo>(list);
         }
 
     @Override

@@ -49,7 +49,7 @@ public class BuyInfoMapperTest {
     @Test
     public void findAllInEffectiveTime() {
         Date date=new Date();
-        System.out.println(buyInfoMapper.findAllInEffectiveTime(date));
+        System.out.println(buyInfoMapper.findAllInEffectiveTime(date).size());
     }
 
     @Test

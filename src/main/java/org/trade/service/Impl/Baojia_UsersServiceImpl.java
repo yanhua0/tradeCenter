@@ -25,6 +25,8 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
     private MesMapper mesMapper;
     @Autowired
     private UsersMapper usersMapper;
+    @Autowired
+    private BuyInfoMapper buyInfoMapper;
 
     //第一集筛选供应商--点击审核通过按钮
     @Override
@@ -32,6 +34,9 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
         //修改审核通过报价信息的检查等级
         try {//判断每条数据是不是检查等级是不是为0
             List<Baojia> list = baojiaMapper.checkInfo(id);
+            BuyInfo b1=buyInfoMapper.selectByPrimaryKey(bid);
+            b1.setCheckLevel(3);//进入筛选操作,关闭报价
+            buyInfoMapper.updateByPrimaryKey(b1);
             for (Baojia b : list) {
                 if (b.getCheckLevel() != 0) {
                     throw new TradeException("非法操作!");

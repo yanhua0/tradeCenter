@@ -19,7 +19,7 @@ public interface BuyInfoService {
     PageInfo<BuyInfo> findByPage(Integer page);
     List<BuyInfo> findByCheckLevel0();
     List<BuyInfo> findByCheckLevel1();
-    List<BuyInfo> findAllInEffectiveTime();//查询所有有效时间的采购信息，用于阳光用户报价
+    PageInfo<BuyInfo> findAllInEffectiveTime(int page);//查询所有有效时间的采购信息，用于阳光用户报价
     List<BuyInfo> selectSuppliers1();
     List<BuyInfo> selectSuppliers2();
     List<BuyInfo> selectSuppliers3();

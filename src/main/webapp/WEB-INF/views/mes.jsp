@@ -96,8 +96,9 @@
                     <c:if test="${page.isLastPage==false}">
                         <li><a href="mes?page=${page.lastPage}">末页</a></li></c:if>
                 </ul>
-                </c:if>
             </div>
+                </c:if>
+
      </div>
    </div>
  </div>
