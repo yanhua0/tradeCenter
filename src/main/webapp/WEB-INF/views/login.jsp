@@ -27,10 +27,10 @@
                 alert("密码不能为空");
                 return false;
             }
-            // else if($("input[name='verifyCode']").val()==""){
-            //     alert("验证码不能为空");
-            //     return false;
-            // }
+            else if($("input[name='verifyCode']").val()==""){
+                alert("验证码不能为空");
+                return false;
+            }
             return true;
         }
 	</script>
@@ -161,14 +161,17 @@
 			from {transform: rotateY(0deg);}
 			to {transform: rotateY(360deg);}
 		}
+		img{
+			max-width: 100%;
+		}
 	</style>
 </head>
 <body>
 <div class="slideshow">
-	<div class="slideshow-image" style="background-image: url('static/images/02.png')"></div>
-	<div class="slideshow-image" style="background-image: url('static/images/03.jpg')"></div>
-	<div class="slideshow-image" style="background-image: url('static/images/04.png')"></div>
-	<div class="slideshow-image" style="background-image: url('static/images/03.png')"></div>
+	<div class="slideshow-image" style="background-image: url('static/images/login/3.jpg')"></div>
+	<div class="slideshow-image" style="background-image: url('static/images/login/2.jpg')"></div>
+	<div class="slideshow-image" style="background-image: url('static/images/login/3.jpg')"></div>
+	<div class="slideshow-image" style="background-image: url('static/images/login/2.jpg')"></div>
 </div>
 <div id="bodyBox">
 	<div id="logoBox">
@@ -183,16 +186,16 @@
 			<form action="check" method="post" onsubmit="return check()">
 				<div class="textBox">
 					<img src="static/images/uname1.png" id="icon"/>
-					<input id="txt" type="text" name="username" placeholder="用户名"/>
+					<input id="txt" type="text" name="username" placeholder="用户名" value="${users.username}"/>
 				</div>
 				<div class="textBox" style="margin-top:30px;">
 					<img src="static/images/upwd1.png" id="icon"/>
-					<input id="txt" type="password" name="password" placeholder="登录密码" />
+					<input id="txt" type="password" name="password" placeholder="登录密码"  value="${users.password}"/>
 				</div>
 				<div id="verificationCodeBox">
 					<div class="textBox" style="width:190px;float:left;">
 						<img src="static/images/verifyCode1.png" id="icon"/>
-						<input id="txt" type="text" name="verifyCode" placeholder="验证码" style="width:120px;margin-top:0px;float:right;" maxlength="4" />
+						<input id="txt" type="text" name="verifyCode" placeholder="验证码" style="width:120px;margin-top:0px;float:right;" maxlength="4" value="${yzm}"/>
 					</div>
 					<div id="verifyCode">
 						<img src="getVerifyCode" width="190px" height="40px" id="verifyCodeImage" title="换一张" onclick="changVerifyCode()" style="cursor: pointer;">

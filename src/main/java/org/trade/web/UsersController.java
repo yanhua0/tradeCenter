@@ -25,7 +25,7 @@ public class UsersController {
     private UsersServcie usersServcie;
 
     //获得随机验证码
-    @RequestMapping("/getVerifyCode")
+    @RequestMapping(value = "/getVerifyCode",method = RequestMethod.GET)
     public void getVerifyCode(
             HttpServletResponse response,
             HttpServletRequest request,
@@ -49,15 +49,27 @@ public class UsersController {
         session.invalidate();
         return "login";
     }
-
+//    //退出
+//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+//    public String logout() {
+//
+//        return "redirect:/login";
+//    }
     //登陆验证
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public String check(Users users, RedirectAttributes attr, HttpSession session, HttpServletResponse response, @RequestParam("verifyCode") String user_verifyCode) {
         Users u = usersServcie.login(users);
         if (u != null) {
+            attr.addFlashAttribute("users",users);
+            attr.addFlashAttribute("yzm",user_verifyCode);
             String u_verifyCode=user_verifyCode.toUpperCase();
             String verifyCode=(String) session.getAttribute("RANDOMVALIDATECODEKEY");//系统随机产生的验证码从session中取出
-            String s_verifyCode=verifyCode.toUpperCase();
+            String s_verifyCode="";
+            if(verifyCode==null){
+                attr.addFlashAttribute("error", "验证码已经失效!");
+                return "redirect:/login";
+            }
+            s_verifyCode=verifyCode.toUpperCase();
             if(u_verifyCode.equals(s_verifyCode)) {
                 session.setMaxInactiveInterval(3600);
                 session.setAttribute("users", u);

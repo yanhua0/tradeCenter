@@ -48,7 +48,7 @@ public class RandomValidateCode {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
         Graphics g = image.getGraphics();// 产生Image对象的Graphics对象,改对象可以在图像上进行各种绘制操作
         g.fillRect(0, 0, width, height);
-        g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 18));
+        g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 20));
         g.setColor(getRandColor(110, 133));
         // 绘制干扰线
         for (int i = 0; i <= lineSize; i++) {
@@ -61,7 +61,7 @@ public class RandomValidateCode {
         }
         //将生成的随机字符串保存到session中，而jsp界面通过session.getAttribute("RANDOMCODEKEY")，
         //获得生成的验证码，然后跟用户输入的进行比较
-        session.setMaxInactiveInterval(300);//验证码的有效时间为五分钟
+        session.setMaxInactiveInterval(60);//验证码的有效时间为1分钟
         session.removeAttribute(RANDOMCODEKEY);
         session.setAttribute(RANDOMCODEKEY, randomString);
         g.dispose();

@@ -29,6 +29,16 @@
             background-size: cover;
 
         }
+        body{
+            font-family:"Microsoft YaHei";
+        }
+        a{
+            font-size: 16px;
+        }
+        .accordion .link
+        {
+            font-size: 18px;
+        }
     </style>
 
 
@@ -41,11 +51,11 @@
 
 <ul id="accordion" class="accordion">
 
-    <li class="open">
+    <li>
 
         <div class="link"><i class="fa fa-paint-brush"></i>事物中心<i class="fa fa-chevron-down"></i></div>
 
-        <ul class="submenu aa">
+        <ul class="submenu">
             <c:if test="${users.role.action.equals('阳光用户')}">
                 <li><a href="list" target="content" class="fi" rel="popover" data-content="对采购订单报价并交纳保证金"  data-placement="top">参与报价</a></li>
             </c:if>
@@ -84,10 +94,10 @@
 
     </li>
 
-    <li class="open">
+    <li>
         <div class="link"><i class="fa fa-globe"></i>友情链接<i class="fa fa-chevron-down"></i></div>
 
-        <ul class="submenu aa">
+        <ul class="submenu">
 
             <li><a href="http://www.cgdc.com.cn/" target="_blank" class="news_index_bottom_href"
                    onclick="$.get(&#39;/friendlink_view.jspx?id=50&#39;)">
