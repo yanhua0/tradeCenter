@@ -93,7 +93,7 @@
                    onclick="$.get(&#39;/friendlink_view.jspx?id=50&#39;)">
                 中国国电集团 </a>
 
-            <li><a href="http://www.czce.com.cn/portal/index.htm" target="_blank" class="news_index_bottom_href"
+            <li><a href="http://www.czce.com.cn/" target="_blank" class="news_index_bottom_href"
                    onclick="$.get(&#39;/friendlink_view.jspx?id=78&#39;)">
                 郑州商品交易所 </a>
 

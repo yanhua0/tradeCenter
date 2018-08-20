@@ -45,6 +45,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         {
             return true;
         }
+        if(url.indexOf("/getVerifyCode")>=0)
+        {
+            return true;
+        }
         if(u!=null){
 
             return true;

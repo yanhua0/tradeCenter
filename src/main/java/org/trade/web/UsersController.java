@@ -7,11 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.trade.entity.Users;
 import org.trade.service.UsersServcie;
+import org.trade.util.RandomValidateCode;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +24,24 @@ public class UsersController {
     @Autowired
     private UsersServcie usersServcie;
 
+    //获得随机验证码
+    @RequestMapping("/getVerifyCode")
+    public void getVerifyCode(
+            HttpServletResponse response,
+            HttpServletRequest request,
+            HttpSession session
+    ) {
+        response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
+        response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expire", 0);
+        RandomValidateCode randomValidateCode = new RandomValidateCode();
+        try {
+            randomValidateCode.getRandcode(request, response);//输出验证码图片方法
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //登陆页面地址
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -31,17 +52,25 @@ public class UsersController {
 
     //登陆验证
     @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public String check(Users users, RedirectAttributes attr, HttpSession session, HttpServletResponse response) {
+    public String check(Users users, RedirectAttributes attr, HttpSession session, HttpServletResponse response, @RequestParam("verifyCode") String user_verifyCode) {
         Users u = usersServcie.login(users);
         if (u != null) {
-            session.setMaxInactiveInterval(3600);
-            session.setAttribute("users", u);
-            //放入cookies关闭浏览器用户没有退出
-            Cookie cookieSId = new Cookie("JSESSIONID",session.getId());
-            cookieSId.setMaxAge(60*60);
-            cookieSId.setPath("/");
-            response.addCookie(cookieSId);
-            return "redirect:/";
+            String u_verifyCode=user_verifyCode.toUpperCase();
+            String verifyCode=(String) session.getAttribute("RANDOMVALIDATECODEKEY");//系统随机产生的验证码从session中取出
+            String s_verifyCode=verifyCode.toUpperCase();
+            if(u_verifyCode.equals(s_verifyCode)) {
+                session.setMaxInactiveInterval(3600);
+                session.setAttribute("users", u);
+                //放入cookies关闭浏览器用户没有退出
+                Cookie cookieSId = new Cookie("JSESSIONID", session.getId());
+                cookieSId.setMaxAge(60 * 60);
+                cookieSId.setPath("/");
+                response.addCookie(cookieSId);
+                return "redirect:/";
+            }else{
+                attr.addFlashAttribute("error", "验证码错误!");
+                return "redirect:/login";
+            }
         } else {
             attr.addFlashAttribute("error", "用户名或密码错误！");
             return "redirect:/login";

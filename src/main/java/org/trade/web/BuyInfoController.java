@@ -110,7 +110,7 @@ public class BuyInfoController {
    //展示采购信息
    @RequestMapping(value = "/show", method = RequestMethod.GET)
     public String show(Model model,@RequestParam("id") int id){
-        BuyInfo b=buyInfoService.findById(id);
+        BuyInfo b=buyInfoService.findByIdAndCheckLevel(id);
         if(b!=null){
             model.addAttribute("buyInfo",b);
             if (b.getBaojiaPrice() != -1) {
