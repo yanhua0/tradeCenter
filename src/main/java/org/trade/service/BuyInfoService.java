@@ -25,6 +25,6 @@ public interface BuyInfoService {
     List<BuyInfo> selectSuppliers2(Users users);
     List<BuyInfo> selectSuppliers3(Users users);
     List<BuyInfo> find();
-    boolean checkSno(int id,Users users);
+    boolean checkSno(int id,Users users);//是否是同一家公司
 //    List<BuyInfo> selectSuppliers4(int uid); //根据用户id查询用户中标的信息
 }

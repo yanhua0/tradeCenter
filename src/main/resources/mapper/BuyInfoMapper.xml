@@ -83,8 +83,7 @@
         b.check_level=2
         and b.create_time <![CDATA[ <= ]]> #{nowTime}
         and b.end_time >= #{nowTime}
-        order by id asc
-     </select>
+    </select>
 
     <select id="selectSuppliers1" resultMap="BaseResultMap">
         select *from buyinfo b inner join baojia bj on b.id=bj.bid

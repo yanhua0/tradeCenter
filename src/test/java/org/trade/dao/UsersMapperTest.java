@@ -18,7 +18,7 @@ public class UsersMapperTest {
 
     @Test
     public void selectByPrimaryKey() {
-        System.out.println(usersMapper.selectByPrimaryKey(1).getFreezeMoney2());
+        System.out.println(usersMapper.selectByPrimaryKey(1));
 
     }
 

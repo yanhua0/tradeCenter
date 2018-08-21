@@ -19,11 +19,11 @@
         }
 
         function check(){
-            if($("input[name='uname']").val()==""){
+            if($("input[name='username']").val()==""){
                 alert("用户名不能为空！");
                 return false;
             }
-            else if($("input[name='upwd']").val()==""){
+            else if($("input[name='password']").val()==""){
                 alert("密码不能为空");
                 return false;
             }
@@ -176,7 +176,7 @@
 <div id="bodyBox">
 	<div id="logoBox">
 		<div style="width:200px;height:50px;margin-left:50px;"></div>
-		<img id="img" src="static/images/5.png" width="300px"/>
+		<img id="img" src="static/images/5.png" width="400px"/>
 	</div>
 	<div id="loginInfo">
 		<div id="loginForm">

@@ -797,6 +797,9 @@
                         alert(result.stateinfo);
                         window.location.reload();
                     }
+                    if (result.state == -1) {
+                        alert(result.stateinfo);
+                    }
                     else {
                         console.log(result)
                         alert(result.data);
