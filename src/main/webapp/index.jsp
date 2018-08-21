@@ -21,13 +21,16 @@
 			width:79%;
 			height:100%;
 		}
-
+		#under{
+			width:100%;
+			height:90px;
+		}
 	</style>
 <body>
 <iframe id="top" name=""  scrolling="no" src="top.jsp" frameborder="0" ></iframe>
 <iframe id="first" name="" scrolling="no" src="left.jsp" frameborder="0" ></iframe>
 <iframe id="form" scrolling="yes" src="first.jsp" name="content" frameborder="0" ></iframe>
-
+<iframe id="under" scrolling="no" border="0 " frameborder="0" src="bottom.jsp" frameborder="0"></iframe>
 </body>
 </head>
 <script src="static/js/plug-in.js"></script>
