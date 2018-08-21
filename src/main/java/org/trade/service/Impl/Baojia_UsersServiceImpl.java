@@ -98,6 +98,7 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                 Users[] us = new Users[bg.size()];
                 double money = bg.get(0).getBaojia().getBuyInfo().getUsers().getMoney();
                 double freeze2 = bg.get(0).getBaojia().getBuyInfo().getUsers().getFreezeMoney2();
+                double f2=freeze2;
                 //将驳回的人员信息放入集合
                 for (int i = 0; i < bg.size(); i++) {
 
@@ -126,7 +127,8 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                     mes[i].setReceieveid(bg.get(i).getGys().getUid());
                     mes[i].setState(0);
                     mes[i].setSendname(users.getName());
-                    mes[i].setMessage("你报价的订单号为<span>" + bg.get(i).getBaojia().getBuyInfo().getSno() + "</span>已经中标!!系统已经自动退还冻结的报价保证金<span>"+price+"</span>元");
+                    double a=freeze2-f2;
+                    mes[i].setMessage("你报价的订单号为<span>" + bg.get(i).getBaojia().getBuyInfo().getSno() + "</span>已经中标!!系统已经自动退还冻结的报价保证金<span>"+a+"</span>元");
                     list.add(mes[i]);
 
                 }

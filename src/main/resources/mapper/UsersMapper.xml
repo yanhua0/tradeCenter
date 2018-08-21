@@ -10,13 +10,14 @@
     <result column="money" property="money" jdbcType="DECIMAL" />
     <result column="freeze_money" property="freezeMoney" jdbcType="DECIMAL" />
     <result column="freeze_money2" property="freezeMoney2" jdbcType="DECIMAL" />
+    <result column="sno" property="sno" jdbcType="INTEGER" />
     <association property="role" column="rid" select="selectByUsersId">
 
     </association>
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, rid, username, password, name, money, freeze_money, freeze_money2
+    id, rid, username, password, name, money, freeze_money, freeze_money2,sno
   </sql>
   <select id="selectByUsersId" resultType="org.trade.entity.Role">
     select *from role where id=#{rid}

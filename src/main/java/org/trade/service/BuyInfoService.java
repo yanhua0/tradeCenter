@@ -2,6 +2,7 @@ package org.trade.service;
 
 import com.github.pagehelper.PageInfo;
 import org.trade.entity.BuyInfo;
+import org.trade.entity.Users;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -17,12 +18,13 @@ public interface BuyInfoService {
     BuyInfo checkState(int uid);
     List<BuyInfo> findAll();
     PageInfo<BuyInfo> findByPage(Integer page);
-    List<BuyInfo> findByCheckLevel0();
-    List<BuyInfo> findByCheckLevel1();
+    List<BuyInfo> findByCheckLevel0(Users users);
+    List<BuyInfo> findByCheckLevel1(Users users);
     PageInfo<BuyInfo> findAllInEffectiveTime(int page);//查询所有有效时间的采购信息，用于阳光用户报价
-    List<BuyInfo> selectSuppliers1();
-    List<BuyInfo> selectSuppliers2();
-    List<BuyInfo> selectSuppliers3();
+    List<BuyInfo> selectSuppliers1(Users users);
+    List<BuyInfo> selectSuppliers2(Users users);
+    List<BuyInfo> selectSuppliers3(Users users);
     List<BuyInfo> find();
+    boolean checkSno(int id,Users users);
 //    List<BuyInfo> selectSuppliers4(int uid); //根据用户id查询用户中标的信息
 }

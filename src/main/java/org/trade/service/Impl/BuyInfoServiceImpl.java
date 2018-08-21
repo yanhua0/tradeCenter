@@ -69,7 +69,7 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         buyInfo.setCreatePerson(u.getName());
         System.out.println(buyInfo);
         logger.info("buyinfo",buyInfo);
-        BuyInfo buyInfos=buyInfoMapper.checkState(buyInfo);
+        BuyInfo buyInfos=buyInfoMapper.checkState(buyInfo);//判断是否已经创建了采购订单
         //该用户保存状态有一条数据,保存
         if(buyInfos!=null){
             buyInfo.setId(buyInfos.getId());
@@ -133,13 +133,25 @@ public class BuyInfoServiceImpl implements BuyInfoService {
     }
 
     @Override
-    public List<BuyInfo> findByCheckLevel0() {
-        return buyInfoMapper.findByCheckLevel0();
+    public List<BuyInfo> findByCheckLevel0(Users users) {
+        List<BuyInfo> buyInfos=buyInfoMapper.findByCheckLevel0();
+        for(int i=0;i<buyInfos.size();i++){
+             if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
+              buyInfos.remove(i);
+            }
+        }
+        return buyInfos;
     }
 
     @Override
-    public List<BuyInfo> findByCheckLevel1() {
-        return buyInfoMapper.findByCheckLevel1();
+    public List<BuyInfo> findByCheckLevel1(Users users) {
+        List<BuyInfo> buyInfos=buyInfoMapper.findByCheckLevel1();
+        for(int i=0;i<buyInfos.size();i++){
+            if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
+                buyInfos.remove(i);
+            }
+        }
+        return buyInfos;
     }
 
     @Override
@@ -151,24 +163,52 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         }
 
     @Override
-    public List<BuyInfo> selectSuppliers1() {
-        return buyInfoMapper.selectSuppliers1();
+    public List<BuyInfo> selectSuppliers1(Users users) {
+        List<BuyInfo> buyInfos=buyInfoMapper.selectSuppliers1();
+        for(int i=0;i<buyInfos.size();i++){
+            if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
+                buyInfos.remove(i);
+            }
+        }
+        return buyInfos;
+
     }
 
     @Override
-    public List<BuyInfo> selectSuppliers2() {
-        return  buyInfoMapper.selectSuppliers2();
+    public List<BuyInfo> selectSuppliers2(Users users) {
+        List<BuyInfo> buyInfos=buyInfoMapper.selectSuppliers2();
+        for(int i=0;i<buyInfos.size();i++){
+            if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
+                buyInfos.remove(i);
+            }
+        }
+        return buyInfos;
     }
 
     @Override
-    public List<BuyInfo> selectSuppliers3() {
-        return  buyInfoMapper.selectSuppliers3();
+    public List<BuyInfo> selectSuppliers3(Users users) {
+        List<BuyInfo> buyInfos=buyInfoMapper.selectSuppliers3();
+        for(int i=0;i<buyInfos.size();i++){
+            if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
+                buyInfos.remove(i);
+            }
+        }
+        return buyInfos;
     }
 
     @Override
     public List<BuyInfo> find() {
         Date d=new Date();
         return buyInfoMapper.findAllInEffectiveTime(d);
+    }
+
+    @Override
+    public  boolean checkSno(int id,Users users) {
+        BuyInfo buyInfo=buyInfoMapper.selectByPrimaryKey(id);
+        if(buyInfo.getUsers().getSno()!=users.getSno()){
+            return false;
+        }
+        return true;
     }
 
 //    @Override

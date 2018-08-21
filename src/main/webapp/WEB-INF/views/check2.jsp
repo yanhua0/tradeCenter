@@ -759,13 +759,12 @@
               }
               console.log(opo);
               $.post("checkInfo2",{opo:opo,advice:$("#advice").val(),id:parseInt($("#id").val())},function (data) {
-                  console.log(data);
                   if(data==0){
                       window.location.reload();
                   }
                   else {
                       if(opo=="yes"){
-                          alert("审核成功,信息已经提交给分子公司审核!");
+                          alert("审批通过,该采购订单已自动发布!");
                       }if(opo=="no"){
                           alert("驳回采购信息成功!");
                       }

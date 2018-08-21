@@ -18,8 +18,15 @@ public class Users {
     private double freezeMoney;
 
     private double freezeMoney2;
+   private int sno;
 
+    public int getSno() {
+        return sno;
+    }
 
+    public void setSno(int sno) {
+        this.sno = sno;
+    }
 
     private Role role;
 
@@ -102,6 +109,7 @@ public class Users {
     public Users() {
 
     }
+
     @Override
     public String toString() {
         return "Users{" +
@@ -112,6 +120,8 @@ public class Users {
                 ", name='" + name + '\'' +
                 ", money=" + money +
                 ", freezeMoney=" + freezeMoney +
+                ", freezeMoney2=" + freezeMoney2 +
+                ", sno=" + sno +
                 ", role=" + role +
                 '}';
     }

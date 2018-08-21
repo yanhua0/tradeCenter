@@ -841,7 +841,7 @@ word-wrap: break-word;
           })
           $("#confirm").click(function () {
               if(check()!=false){
-                  alert("审核信息已经提交!");
+                  alert("审批成功!");
                   $("#form").attr("action","checkLevel3");
                   $("#form").submit();
               }

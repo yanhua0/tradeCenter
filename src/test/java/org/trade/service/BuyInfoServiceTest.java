@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.trade.dao.BuyInfoMapper;
+import org.trade.dao.UsersMapper;
 import org.trade.entity.BuyInfo;
+import org.trade.entity.Users;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //告诉junit Spring配置文件的位置
@@ -16,6 +18,8 @@ public class BuyInfoServiceTest {
    private BuyInfoService buyInfoService;
     @Autowired
     private BuyInfoMapper buyInfoMapper;
+    @Autowired
+    private UsersMapper usersMapper;
     @Test
     public void create(){
    // buyInfoService.findAllInEffectiveTime(1);
@@ -24,14 +28,15 @@ public class BuyInfoServiceTest {
 
     @Test
     public void create1() {
-        BuyInfo b=buyInfoMapper.selectByPrimaryKey(30);
+        BuyInfo b=buyInfoMapper.selectByPrimaryKey(1);
 
-        System.out.println(b.getBaojiaPrice()==-1);
+        System.out.println(b.getUsers().getSno());
        // buyInfoMapper.updateByPrimaryKey(b);
     }
 
     @Test
     public void find() {
-        System.out.println(buyInfoService.find());
+        Users u=usersMapper.selectByPrimaryKey(8);
+        System.out.println(buyInfoService.findAllInEffectiveTime(1));
     }
 }

@@ -30,6 +30,7 @@ public class BuyInfoMapperTest {
 
     @Test
     public void updateByPrimaryKeySelective() {
+        System.out.println(buyInfoMapper.findAllInEffectiveTime(new Date()).size());
     }
 
     @Test

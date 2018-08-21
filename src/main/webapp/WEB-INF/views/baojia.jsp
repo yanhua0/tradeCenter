@@ -677,7 +677,18 @@
             <input type="hidden" name="bid" id="bid" value="${buyInfo.id}">
             <div class="panel-body">
                 <div class="panel-body" id="dasd">
-                    <div> 供应数量(万吨)：<c:if test="${baojia!=null}"><c:if test="${baojia.checkLevel==-1||buyInfo.baojiaPrice==-1}"><input class="bj" name="number" id="bj1-input" type="text" value="${baojia.number}"></c:if><c:if test="${baojia.checkLevel==0&&buyInfo.baojiaPrice!=-1}"><input class="bj" name="number" id="bj1-input" readonly="readonly" style="outline: none;border:0;" type="text" value="${baojia.number}"></c:if></c:if><c:if test="${baojia==null}"><input class="bj" name="number" id="bj1-input" type="text" value="${baojia.number}"></c:if>&nbsp;
+                    <div> 供应数量(万吨)：<c:if test="${baojia!=null}"><c:if
+                            test="${baojia.checkLevel==-1||buyInfo.baojiaPrice==-1}"><input class="bj" name="number"
+                                                                                            id="bj1-input" type="text"
+                                                                                            value="${baojia.number}"></c:if><c:if
+                            test="${baojia.checkLevel==0&&buyInfo.baojiaPrice!=-1}"><input class="bj" name="number"
+                                                                                           id="bj1-input"
+                                                                                           readonly="readonly"
+                                                                                           style="outline: none;border:0;"
+                                                                                           type="text"
+                                                                                           value="${baojia.number}"></c:if></c:if><c:if
+                            test="${baojia==null}"><input class="bj" name="number" id="bj1-input" type="text"
+                                                          value="${baojia.number}"></c:if>&nbsp;
                         煤单价(元/吨)：<input class="bj" name="prices" id="bj2-input" type="text" value="${baojia.unitPrice}">&nbsp;
                         产地：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
                                 class="bj" id="bj5-input" type="text" name="createArea" value="${baojia.createArea}">
@@ -694,39 +705,41 @@
                     <br>
                     <div class="advice">
                         <div>
-<c:if test="${baojia!=null}">
-                            <c:if test="${buyInfo.baojiaPrice!=-1}">
-                            <c:if test="${baojia.checkLevel==-1}">
-                                <input type="submit" class="btn btn-primary" id="confim" value="缴纳保证金">
-                            </c:if>
-                            <c:if test="${baojia.checkLevel==0}">
-                                <input disabled="disabled" type="button" id="confim" class="btn btn-primary" value="缴纳保证金">
-                            </c:if>
-                            </c:if>
-<c:if test="${buyInfo.baojiaPrice==-1}">
-    <input type="submit" class="btn btn-primary" disabled="disabled" id="confim" value="不要保证金!">
-</c:if>
-<c:if test="${buyInfo.baojiaPrice!=-1}">
-                            <c:if test="${baojia.checkLevel==-1}">
-                                <input type="button" class="btn btn-primary" disabled="disabled" value="提交报价">
-                            </c:if>
-                            <c:if test="${baojia.checkLevel==0}">
-                                <input type="button" class="btn btn-primary" id="sub" value="提交报价">
-                            </c:if>
-</c:if>
-                            <c:if test="${buyInfo.baojiaPrice==-1}">
-                                <input type="button" class="btn btn-primary" id="sub" value="提交报价">
-                            </c:if>
-
-</c:if>
-                            <c:if test="${baojia==null}">
+                            <c:if test="${baojia!=null}">
                                 <c:if test="${buyInfo.baojiaPrice!=-1}">
-                                <input type="button" class="btn btn-primary" id="confim" value="缴纳保证金">
-                                  <input type="button" class="btn btn-primary" id="sub" disabled="disabled" value="提交报价">
+                                    <c:if test="${baojia.checkLevel==-1}">
+                                        <input type="submit" class="btn btn-primary" id="confim" value="缴纳保证金">
+                                    </c:if>
+                                    <c:if test="${baojia.checkLevel==0}">
+                                        <input disabled="disabled" type="button" id="confim" class="btn btn-primary"
+                                               value="缴纳保证金">
+                                    </c:if>
                                 </c:if>
                                 <c:if test="${buyInfo.baojiaPrice==-1}">
-                                    <input type="button" class="btn btn-primary" disabled="disabled" id="confim" value="不要保证金!">
-                                    <input type="button" class="btn btn-primary" id="sub"  value="提交报价">
+                                    <input type="submit" class="btn btn-primary" disabled="disabled" value="不要保证金!">
+                                </c:if>
+                                <c:if test="${buyInfo.baojiaPrice!=-1}">
+                                    <c:if test="${baojia.checkLevel==-1}">
+                                        <input type="button" class="btn btn-primary" disabled="disabled" value="提交报价">
+                                    </c:if>
+                                    <c:if test="${baojia.checkLevel==0}">
+                                        <input type="button" class="btn btn-primary" id="sub" value="提交报价">
+                                    </c:if>
+                                </c:if>
+                                <c:if test="${buyInfo.baojiaPrice==-1}">
+                                    <input type="button" class="btn btn-primary" id="sub" value="提交报价">
+                                </c:if>
+
+                            </c:if>
+                            <c:if test="${baojia==null}">
+                                <c:if test="${buyInfo.baojiaPrice!=-1}">
+                                    <input type="button" class="btn btn-primary" id="confim" value="缴纳保证金">
+                                    <input type="button" class="btn btn-primary" id="sub" disabled="disabled"
+                                           value="提交报价">
+                                </c:if>
+                                <c:if test="${buyInfo.baojiaPrice==-1}">
+                                    <input type="button" class="btn btn-primary" disabled="disabled" value="不要保证金!">
+                                    <input type="button" class="btn btn-primary" id="sub" value="提交报价">
                                 </c:if>
                             </c:if>
 
@@ -759,31 +772,38 @@
                     alert("请完善对煤质的要求");
                     return false;
                 }
-                if($("#default").val()!=$("#bj1-input").val()&&$("#confim").prop("disabled")==true){
-                    if($("#test").val()!=1){
+                if ($("#default").val() != $("#bj1-input").val() && $("#confim").prop("disabled") == true) {
+                    if ($("#test").val() != 1) {
                         alert("已经缴纳金额,供应数量无法修改!");
                         return false;
                     }
 
                 }
-                var number=$("#bj1-input").val();
-                var sendArea=$("#bj3-input").val();
-                var unitPrice=$("#bj2-input").val();
-                var transportPrice=$("#bj4-input").val();
-                var createArea=$("#bj5-input").val();
-              $.post("submit",{id:$("#id").val(),number:number,sendArea:sendArea,unitPrices:unitPrice,transportPrices:transportPrice,createArea:createArea,
-             bid:$("#bid").val()},function (result) {
-                  if(result.state==2){
-                      alert(result.stateinfo);
-                      window.location.reload();
-                  }
-                  else{
-                      console.log(result)
-                      alert(result.data);
+                var number = $("#bj1-input").val();
+                var sendArea = $("#bj3-input").val();
+                var unitPrice = $("#bj2-input").val();
+                var transportPrice = $("#bj4-input").val();
+                var createArea = $("#bj5-input").val();
+                $.post("submit", {
+                    id: $("#id").val(),
+                    number: number,
+                    sendArea: sendArea,
+                    unitPrices: unitPrice,
+                    transportPrices: transportPrice,
+                    createArea: createArea,
+                    bid: $("#bid").val()
+                }, function (result) {
+                    if (result.state == 2) {
+                        alert(result.stateinfo);
+                        window.location.reload();
+                    }
+                    else {
+                        console.log(result)
+                        alert(result.data);
 
-                  }
-             })
-               
+                    }
+                })
+
             });
 
         })

@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.trade.dao.UsersMapper;
+import org.trade.entity.Users;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //告诉junit Spring配置文件的位置
@@ -12,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class Baojia_GysServiceTest {
    @Autowired
    private Baojia_GysService baojia_gysService;
+   @Autowired
+   private UsersMapper usersMapper;
     @Test
     public void refuse() {
          int bjid[]={236,237};
@@ -23,8 +27,8 @@ public class Baojia_GysServiceTest {
 
     @Test
     public void findAllChecklevel1() throws Exception {
-     //   baojia_gysService.findAllChecklevel1(23)
-        System.out.println(baojia_gysService.findAllChecklevel2(12));
+        Users u=usersMapper.selectByPrimaryKey(5);
+      System.out.println();
 
     }
 

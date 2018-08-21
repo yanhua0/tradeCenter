@@ -776,6 +776,7 @@
 <div>
 备注：<label for=""><textarea class="form-control" name="advice"></textarea></label><br>
  <input type="button" id="sub" class="btn btn-primary" value="提交" >
+    <input type="button" id="del" class="btn btn-primary" value="作废" >
 <input type="button" class="btn btn-primary" id="redirect" value="返回">
 </div>
 </div>
@@ -788,6 +789,12 @@
 </body>
 <script>
     $(function () {
+        $("#del").click(function () {
+            if(check()!=false){
+                $("#form").attr("action","del");
+                $("#form").submit();
+            }
+        })
         $("#redirect").click(function () {
             window.location.href="gys";
         });

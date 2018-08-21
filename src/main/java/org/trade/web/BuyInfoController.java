@@ -144,12 +144,12 @@ public class BuyInfoController {
             if (users.getRole().getAction().equals("电厂审核"))
                 //进入第一级审核页面
                 {
-                    List<BuyInfo> p = buyInfoService.findByCheckLevel0();
+                    List<BuyInfo> p = buyInfoService.findByCheckLevel0(users);
                     model.addAttribute("buyInfo", p);
                 }
                 //进入第二级审核页面
            else if(users.getRole().getAction().contains("分子公司")){
-                List<BuyInfo> p = buyInfoService.findByCheckLevel1();
+                List<BuyInfo> p = buyInfoService.findByCheckLevel1(users);
                 model.addAttribute("buyInfo", p);
             }
             else {
@@ -176,7 +176,12 @@ public class BuyInfoController {
             if (users.getRole().getAction().equals("电厂审核")) {
                 BuyInfo buyInfo = buyInfoService.findById(id);
                 if(buyInfo==null){
+                    logger.error("采购信息不存在!");
                     return "redirect:/member";
+                }
+                boolean flag=buyInfoService.checkSno(id,users);
+                if(!flag){
+                    throw new TradeException("非法操作!");
                 }
                 double i=buyInfo.getNumber()*buyInfo.getBaojiaPrice();
                 if(i>=0){
@@ -210,6 +215,10 @@ public class BuyInfoController {
                 BuyInfo buyInfo = buyInfoService.findById(id);
                 if(buyInfo==null){
                     return "redirect:/member";
+                }
+                boolean flag=buyInfoService.checkSno(id,users);
+                if(!flag){
+                    throw new TradeException("非法操作!");
                 }
                 double i=buyInfo.getNumber()*buyInfo.getBaojiaPrice();
                 if(i>=0){

@@ -24,6 +24,7 @@ public interface BuyInfoMapper {
     List<BuyInfo> findAll(@Param("offset") int offset, @Param("limit") int limit);//分页查询
     List<BuyInfo> queryAll();
     List<BuyInfo> findAllInEffectiveTime(Date nowTime);//查询所有有效时间的采购信息，用于阳光用户报价
+
     List<BuyInfo> findByCheckLevel0();//第一级审核的采购信息
     List<BuyInfo> findByCheckLevel1();//第二级审核的采购信息
 

@@ -168,12 +168,12 @@ public class BaojiaController {
         try {
             List<BuyInfo> buyInfos = null;
             if (users.getRole().getAction().equals("分子公司审核")) {
-                buyInfos = buyInfoService.selectSuppliers1();
+                buyInfos = buyInfoService.selectSuppliers1(users);
 
             } else if (users.getRole().getAction().equals("电厂审核")) {
-                buyInfos = buyInfoService.selectSuppliers2();
+                buyInfos = buyInfoService.selectSuppliers2(users);
             } else if (users.getRole().getAction().equals("分子公司审批")) {
-                buyInfos = buyInfoService.selectSuppliers3();
+                buyInfos = buyInfoService.selectSuppliers3(users);
             } else {
                 logger.error("权限不足！---用户id：" + users.getId());
                 throw new TradeException("权限不足！非法操作!");
@@ -194,7 +194,12 @@ public class BaojiaController {
                 BuyInfo buyInfo = buyInfoService.findById(id);
                 if (buyInfo == null) {
                     return "redirect:/gys";
+
                 } else {
+                    boolean flag=buyInfoService.checkSno(id,users);
+                    if(!flag){
+                        throw new TradeException("非法操作!");
+                    }
                     List<Baojia_Gys> baojia_gys = baojia_gysService.findAllChecklevel1(id);
                     model.addAttribute("buyInfo", buyInfo);
                     model.addAttribute("baojia_gys", baojia_gys);
@@ -226,6 +231,10 @@ public class BaojiaController {
                 if (buyInfo == null) {
                     return "redirect:/gys";
                 } else {
+                    boolean flag=buyInfoService.checkSno(id,users);
+                    if(!flag){
+                        throw new TradeException("非法操作!");
+                    }
                     List<Baojia_Gys> baojia_gys = baojia_gysService.findAllChecklevel2(id);
                     model.addAttribute("buyInfo", buyInfo);
                     model.addAttribute("baojia_gys", baojia_gys);
@@ -257,6 +266,10 @@ public class BaojiaController {
                 if (buyInfo == null) {
                     return "redirect:/gys";
                 } else {
+                    boolean flag=buyInfoService.checkSno(id,users);
+                    if(!flag){
+                        throw new TradeException("非法操作!");
+                    }
                     List<Baojia_Gys> baojia_gys = baojia_gysService.findAllChecklevel3(id);
                     List<Baojia_Users> baojia_users = baojia_usersService.findAllCheckPerson(id);
                     model.addAttribute("buyInfo", buyInfo);
@@ -292,6 +305,9 @@ public class BaojiaController {
             } else if (users.getRole().getAction().equals("分子公司审批")) {
                 baojia_gysService.refuse(bjid, advice, users.getName(), id);//第一个id是报价信息的id，第二个是关联表的id
                 return "redirect:gys3?id=" + bid;
+            } else if (users.getRole().getAction().equals("电厂审核")) {
+                baojia_gysService.refuse(bjid, advice, users.getName(), id);//第一个id是报价信息的id，第二个是关联表的id
+                return "redirect:gys2?id=" + bid;
             } else {
                 throw new TradeException("权限不足!");
             }
