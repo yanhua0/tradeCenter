@@ -99,7 +99,7 @@ public class Baojia_UsersServiceImpl implements Baojia_UsersService {
                 double money = bg.get(0).getBaojia().getBuyInfo().getUsers().getMoney();
                 double freeze2 = bg.get(0).getBaojia().getBuyInfo().getUsers().getFreezeMoney2();
                 double f2=freeze2;
-                //将驳回的人员信息放入集合
+
                 for (int i = 0; i < bg.size(); i++) {
 
                     //归还报价保证金

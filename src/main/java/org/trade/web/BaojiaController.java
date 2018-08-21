@@ -35,7 +35,7 @@ public class BaojiaController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String baojiaUi(Model model, HttpSession session,@RequestParam(value = "page",defaultValue = "1",required = true)int page) {
         Users users = (Users) session.getAttribute("users");
-        try {
+
             if (users.getRole().getAction().equals("阳光用户")) {
                 PageInfo<BuyInfo> p = buyInfoService.findAllInEffectiveTime(page);
                 model.addAttribute("page", p);
@@ -44,18 +44,14 @@ public class BaojiaController {
 
             }
             return "list";
-        } catch (TradeException e1) {
-            throw e1;
-        } catch (Exception e2) {
-            throw new TradeException(e2.getMessage());
-        }
+
     }
 
     //查看采购信息并且报价
     @RequestMapping(value = "/baojia", method = RequestMethod.GET)
     public String baojiaShow(Model model, HttpSession session, @RequestParam("id") int id) {
         Users users = (Users) session.getAttribute("users");
-        try {
+
             if (users.getRole().getAction().equals("阳光用户")) {
                 BuyInfo buyInfo = buyInfoService.findByIdAndCheckLevel(id);
                 if (buyInfo == null) {
@@ -75,11 +71,7 @@ public class BaojiaController {
                 throw new TradeException("权限不足！！username=" + users.getUsername());
             }
             return "baojia";
-        } catch (TradeException e1) {
-            throw e1;
-        } catch (Exception e2) {
-            throw new TradeException(e2.getMessage());
-        }
+
     }
 
     //点击缴纳保证金按钮,报价信息
@@ -91,7 +83,7 @@ public class BaojiaController {
 
         Users users = (Users) session.getAttribute("users");
         BuyInfo buyInfo = buyInfoService.findById(bid);
-        try {
+
             if (users.getRole().getAction().equals("阳光用户")) {
                 //类型转换
                 if (buyInfo.getBaojiaPrice() == -1) {
@@ -110,11 +102,7 @@ public class BaojiaController {
             } else {
                 throw new TradeException("权限不足-非法操作！！username=" + users.getUsername());
             }
-        } catch (TradeException e) {
-            throw e;
-        } catch (Exception e1) {
-            throw new TradeException(e1.getMessage());
-        }
+
         //使用转发保存数据
         return "forward:/money";
     }

@@ -136,7 +136,7 @@ public class BuyInfoController {
     @RequestMapping(value = "/member", method = RequestMethod.GET)
     public String member(Model model, HttpSession session) {
         Users users = (Users) session.getAttribute("users");
-        try {
+
             if (users.getRole().getAction().equals("电厂审核"))
                 //进入第一级审核页面
                 {
@@ -155,11 +155,7 @@ public class BuyInfoController {
                 //throw new TradeException("权限不足！非法操作！");
             }
 
-            } catch (TradeException e) {
-            throw e;
-        }catch (Exception e1){
-            throw new TradeException(e1.getMessage());
-        }
+
         return "check";
 
     }

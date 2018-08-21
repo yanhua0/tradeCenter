@@ -166,7 +166,7 @@ public class Baojia_UsersController {
     public String del(HttpSession session, @RequestParam("bjid") int bjid[],
                       @RequestParam("advice") String advice, @RequestParam("id") int id[], @RequestParam("bid") int bid) {
         Users users = (Users) session.getAttribute("users");
-        try {
+
             if (users.getRole().getAction().equals("分子公司审核")) {
                 baojia_gysService.refuse(bjid, advice, users.getName(), id);//第一个id是报价信息的id，第二个是关联表的id
                 return "redirect:gys1?id=" + bid;
@@ -179,12 +179,7 @@ public class Baojia_UsersController {
             } else {
                 throw new TradeException("权限不足!");
             }
-        } catch (TradeException e) {
-            throw e;
-        } catch (Exception e1) {
-            logger.error("系统出错!" + e1.getMessage());
-            throw new TradeException(e1.getMessage() + "----系统错误");
-        }
+
         //第二个id是关联表的Id
     }
 
@@ -192,7 +187,7 @@ public class Baojia_UsersController {
     @RequestMapping(value = "/checkLevel1", method = RequestMethod.POST)
     public String checkLevel1(HttpSession session, @RequestParam("bjid") int id[],
                               @RequestParam("advice") String advice, @RequestParam("bid") int bid) {
-        try {
+
             Users users = (Users) session.getAttribute("users");
             if (users.getRole().getAction().equals("分子公司审核")) {
                 baojia_usersService.check1(id, advice, users, bid);
@@ -200,11 +195,7 @@ public class Baojia_UsersController {
             } else {
                 throw new TradeException("权限不足!" + users.getUsername());
             }
-        } catch (TradeException e) {
-            throw e;
-        } catch (Exception e1) {
-            throw new TradeException(e1.getMessage());
-        }
+
 
     }
 
@@ -212,7 +203,7 @@ public class Baojia_UsersController {
     @RequestMapping(value = "/checkLevel2", method = RequestMethod.POST)
     public String checkLevel2(HttpSession session, @RequestParam("bjid") int id[],
                               @RequestParam("advice") String advice, @RequestParam("bid") int bid) {
-        try {
+
             Users users = (Users) session.getAttribute("users");
             if (users.getRole().getAction().equals("电厂审核")) {
                 baojia_usersService.check2(id, advice, users, bid);
@@ -220,11 +211,7 @@ public class Baojia_UsersController {
             } else {
                 throw new TradeException("权限不足!" + users.getUsername());
             }
-        } catch (TradeException e) {
-            throw e;
-        } catch (Exception e1) {
-            throw new TradeException(e1.getMessage());
-        }
+
 
     }
     //第三级审核通过
@@ -232,7 +219,7 @@ public class Baojia_UsersController {
     @RequestMapping(value = "/checkLevel3", method = RequestMethod.POST)
     public String checkLevel3(HttpSession session, @RequestParam("bjid") int id[], @RequestParam("id") int bgid[],
                               @RequestParam("bid") int bid) {
-        try {
+
             Users users = (Users) session.getAttribute("users");
             if (users.getRole().getAction().equals("分子公司审批")) {
                 baojia_usersService.check3(id, users, bid, bgid);
@@ -240,11 +227,7 @@ public class Baojia_UsersController {
             } else {
                 throw new TradeException("权限不足!" + users.getUsername());
             }
-        } catch (TradeException e) {
-            throw e;
-        } catch (Exception e1) {
-            throw new TradeException(e1.getMessage());
-        }
+
 
     }
 }
