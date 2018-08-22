@@ -36,7 +36,8 @@ public class BuyInfoServiceTest {
 
     @Test
     public void find() {
-        Users u=usersMapper.selectByPrimaryKey(8);
-        System.out.println(buyInfoService.findAllInEffectiveTime(1));
+        Users u=usersMapper.selectByPrimaryKey(5);
+        System.out.println(buyInfoService.selectSuppliers1(u).get(0).getId());
+
     }
 }

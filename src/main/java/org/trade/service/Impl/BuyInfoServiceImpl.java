@@ -138,6 +138,7 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         for(int i=0;i<buyInfos.size();i++){
              if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
               buyInfos.remove(i);
+                 i=i-1;
             }
         }
         return buyInfos;
@@ -149,6 +150,7 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         for(int i=0;i<buyInfos.size();i++){
             if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
                 buyInfos.remove(i);
+                i=i-1;
             }
         }
         return buyInfos;
@@ -168,6 +170,7 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         for(int i=0;i<buyInfos.size();i++){
             if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
                 buyInfos.remove(i);
+                i=i-1;
             }
         }
         return buyInfos;
@@ -180,6 +183,7 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         for(int i=0;i<buyInfos.size();i++){
             if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
                 buyInfos.remove(i);
+                i=i-1;
             }
         }
         return buyInfos;
@@ -191,6 +195,7 @@ public class BuyInfoServiceImpl implements BuyInfoService {
         for(int i=0;i<buyInfos.size();i++){
             if(buyInfos.get(i).getUsers().getSno()!=users.getSno()){
                 buyInfos.remove(i);
+                i=i-1;
             }
         }
         return buyInfos;

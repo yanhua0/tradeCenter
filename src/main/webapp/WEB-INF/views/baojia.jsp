@@ -797,7 +797,7 @@
                         alert(result.stateinfo);
                         window.location.reload();
                     }
-                    if (result.state == -1) {
+                   else if (result.state == -1) {
                         alert(result.stateinfo);
                     }
                     else {

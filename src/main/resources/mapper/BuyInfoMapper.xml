@@ -65,16 +65,16 @@
         select *from buyinfo where uid=#{uid}
     </select>
     <select id="findAll" resultType="org.trade.entity.BuyInfo">
-        select *from buyinfo where check_level=2 order by create_time desc limit #{offset},#{limit}
+        select *from buyinfo where check_level=2 order by id desc limit #{offset},#{limit}
     </select>
     <select id="queryAll" resultType="org.trade.entity.BuyInfo">
-        select *from buyinfo where check_level=2 order by create_time desc
+        select *from buyinfo where check_level=2 order by id desc
     </select>
     <select id="findByCheckLevel0" resultMap="BaseResultMap" >
-        select *from buyinfo where check_level=0 order by create_time desc
+        select *from buyinfo where check_level=0 order by id desc
     </select>
     <select id="findByCheckLevel1" resultMap="BaseResultMap">
-        select *from buyinfo where check_level=1 order by create_time desc
+        select *from buyinfo where check_level=1 order by id desc
     </select>
     <select id="findAllInEffectiveTime" resultType="org.trade.entity.BuyInfo">
         select
@@ -83,6 +83,7 @@
         b.check_level=2
         and b.create_time <![CDATA[ <= ]]> #{nowTime}
         and b.end_time >= #{nowTime}
+        order by id desc
     </select>
 
     <select id="selectSuppliers1" resultMap="BaseResultMap">
