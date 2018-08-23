@@ -101,6 +101,7 @@ public class Baojia_GysServiceImpl implements Baojia_GysService {
             String jiemiunit = Base64.getFromBase64(unit);
             String tran = Base64.getFromBase64(tr);
             String s = Base64.getFromBase64(price);
+            logger.info("----------解密-------总价格="+price+"煤单价="+unit+"运输费用单价="+tr);
             list.get(i).getBaojia().setPrice(s);
             list.get(i).getBaojia().setTransportPrice(tran);
             list.get(i).getBaojia().setUnitPrice(jiemiunit);

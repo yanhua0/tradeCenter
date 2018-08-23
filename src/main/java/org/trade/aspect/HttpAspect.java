@@ -16,7 +16,6 @@ public class HttpAspect {
 
     private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
 
-
     @Pointcut("execution(public * org.trade.web.*.*(..))")
     public void log() {
     }

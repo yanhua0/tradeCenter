@@ -44,6 +44,11 @@
             position:relative;
             
         }
+        .weather{
+            position: relative;
+            left: 37%;
+            top: -50%;
+        }
         #ul1 ul{
             width: 800px;
             position: absolute;
@@ -105,6 +110,7 @@
             color:#00E8FF;
 
         }
+
 span{
     color: #F1F1F1;
 }
@@ -138,6 +144,7 @@ span{
         </c:if>
         <div></div>
     </body>
+<div class="weather"><iframe class="weather" style="color:red;" allowtransparency="true" frameborder="0" width="385" height="96" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=0&v=0&d=3&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=385&h=96&align=center"></iframe></div>
 <script>
     $(function () {
         $(".fi").popover({trigger: 'hover'});

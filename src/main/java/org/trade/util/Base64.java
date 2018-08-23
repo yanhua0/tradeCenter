@@ -37,7 +37,7 @@ public class Base64 {
         return result;
     }
     public static void main(String[] args) {
-    String s="OA==";
+    String s="NjA=";
    // Base64.getFromBase64(s);
     System.out.println(Base64.getFromBase64(s));
     }
