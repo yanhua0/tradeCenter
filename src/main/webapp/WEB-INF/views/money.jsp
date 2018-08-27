@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
     <link href="static/resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
     <link href="static/data/styles.css" type="text/css" rel="stylesheet"/>

@@ -329,31 +329,8 @@ public class BuyInfo {
                 ", endTime=" + endTime +
                 ", createCompany='" + createCompany + '\'' +
                 ", sno='" + sno + '\'' +
-                ", createPerson='" + createPerson + '\'' +
-                ", signPerson='" + signPerson + '\'' +
-                ", createTime=" + createTime +
-                ", type1='" + type1 + '\'' +
-                ", type2='" + type2 + '\'' +
-                ", number=" + number +
-                ", transport='" + transport + '\'' +
-                ", highPrice=" + highPrice +
-                ", lowPrice=" + lowPrice +
-                ", explains='" + explains + '\'' +
-                ", payType='" + payType + '\'' +
-                ", baojiaPrice=" + baojiaPrice +
-                ", agreePrice=" + agreePrice +
-                ", stime=" + stime +
-                ", etime=" + etime +
-                ", applicant='" + applicant + '\'' +
-                ", place='" + place + '\'' +
-                ", calculateType='" + calculateType + '\'' +
-                ", checkgoodsType='" + checkgoodsType + '\'' +
-                ", hot1='" + hot1 + '\'' +
-                ", air='" + air + '\'' +
-                ", hot2='" + hot2 + '\'' +
-                ", remark='" + remark + '\'' +
-                ", opo='" + opo + '\'' +
                 ", advice='" + advice + '\'' +
+                ", users=" + users +
                 '}';
     }
 }

@@ -83,7 +83,7 @@
 			height:36px;
 			float:left;
 		}
-		#txt{
+		.txt{
 			width:328px;
 			height:40px;
 			line-height:40px;
@@ -186,16 +186,16 @@
 			<form action="check" method="post" onsubmit="return check()">
 				<div class="textBox">
 					<img src="static/images/uname1.png" id="icon"/>
-					<input id="txt" type="text" name="username" placeholder="用户名" value="${users.username}"/>
+					<input id="name" class="txt" type="text" name="username" placeholder="用户名" value="${users.username}"/>
 				</div>
 				<div class="textBox" style="margin-top:30px;">
 					<img src="static/images/upwd1.png" id="icon"/>
-					<input id="txt" type="password" name="password" placeholder="登录密码"  value="${users.password}"/>
+					<input id="pwd" class="txt" type="password" name="password" placeholder="登录密码"  value="${users.password}"/>
 				</div>
 				<div id="verificationCodeBox">
 					<div class="textBox" style="width:190px;float:left;">
 						<img src="static/images/verifyCode1.png" id="icon"/>
-						<input id="txt" type="text" name="verifyCode" placeholder="验证码" style="width:120px;margin-top:0px;float:right;" maxlength="4" value="${yzm}"/>
+						<input class="txt" type="text" name="verifyCode" placeholder="验证码" style="width:120px;margin-top:0px;float:right;" maxlength="4" value="${yzm}"/>
 					</div>
 					<div id="verifyCode">
 						<img src="getVerifyCode" width="190px" height="40px" id="verifyCodeImage" title="换一张" onclick="changVerifyCode()" style="cursor: pointer;">
@@ -210,6 +210,12 @@
 	<script>
 		$(function () {
 			$("#loginInfo").show(1000);
+			if($("#name").val()==""){
+                $("#name").val(1);
+			}
+            if($("#pwd").val()==""){
+                $("#pwd").val(1);
+            }
 		})
 	</script>
 </html>
