@@ -2,6 +2,7 @@ $(function () {
     $("#save").click(function () {
 
         if (check() != false) {
+            alert("保存成功！");
             window.document.f.action = "createInfo";
             window.document.f.submit();
         }

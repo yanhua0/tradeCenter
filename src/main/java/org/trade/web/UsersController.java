@@ -74,6 +74,7 @@ public class UsersController {
                 session.setMaxInactiveInterval(3600);
                 session.setAttribute("users", u);
                 //放入cookies关闭浏览器用户没有退出
+                logger.info("session.getId()="+session.getId());
                 Cookie cookieSId = new Cookie("JSESSIONID", session.getId());
                 cookieSId.setMaxAge(60 * 60);
                 cookieSId.setPath("/");
