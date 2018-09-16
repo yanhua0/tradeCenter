@@ -10,12 +10,12 @@
 	<link rel="stylesheet" href="static/css/bg.css">
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script>
-        function genTimestamp() {
+        function getTimestamp() {
             var time = new Date();
             return time.getTime();
         }
         function changVerifyCode() {
-            $('#verifyCodeImage').attr('src', 'getVerifyCode?timestamp=' + genTimestamp());
+            $('#verifyCodeImage').attr('src', 'getVerifyCode?' + getTimestamp());
         }
 
         function check(){

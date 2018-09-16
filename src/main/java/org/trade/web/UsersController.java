@@ -28,9 +28,10 @@ public class UsersController {
     @RequestMapping(value = "/getVerifyCode",method = RequestMethod.GET)
     public void getVerifyCode(
             HttpServletResponse response,
-            HttpServletRequest request,
-            HttpSession session
+            HttpServletRequest request
+
     ) {
+        System.out.println("获取验证码");
         response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
         response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
         response.setHeader("Cache-Control", "no-cache");
